@@ -238,9 +238,8 @@ namespace WitAdminTool
                 rootNode.Nodes.Add(listNode);
 
             }
-            rootNode.Expand();
+            rootNode.ExpandAll();
             treeViewGlobalLists.Nodes.Add(rootNode);
-
             Hourglass(false);
         }
         #endregion
@@ -900,7 +899,6 @@ namespace WitAdminTool
             {
                 doc.WriteContentTo(writer);
             }
-            this.txtGLXml.Text = output.ToString();
 
             if (radioButtonMode_GenerateOnly.Checked)
                 return;
@@ -919,6 +917,8 @@ namespace WitAdminTool
             Hourglass(false);
 
             this.InitGloballistPage();
+
+            this.txtGLXml.Text = output.ToString();
         }
 
         private void btnGLExport_Click(object sender, EventArgs e)
@@ -935,7 +935,8 @@ namespace WitAdminTool
                 return;
             }
 
-            string globlListFilePath = textBoxExportPath.Text + Path.DirectorySeparatorChar + this.workitemStore.TeamProjectCollection.InstanceId.ToString() + ".xml";
+            string globlListFilePath = textBoxExportPath.Text + Path.DirectorySeparatorChar + 
+                workitemStore.TeamProjectCollection.Name.Replace("\\", "_") + ".xml";
 
             string command = GenerateComand(WitadminActions.EXPORTGLOBALLIST, globlListFilePath);
             ExcuteCommand(string.Empty, command);
