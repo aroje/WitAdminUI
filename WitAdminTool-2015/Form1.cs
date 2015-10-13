@@ -18,38 +18,53 @@ using Microsoft.TeamFoundation.WorkItemTracking.Client;
 
 namespace WitAdminTool
 {
+    public class Helpers
+    { 
+        public static TfsTeamProjectCollection ConnectToTeamProject()
+        {
+            try
+            {
+                TeamProjectPicker tpp = new TeamProjectPicker();
+                if (tpp.ShowDialog() == DialogResult.OK)
+                {
+                    return tpp.SelectedTeamProjectCollection;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            return null;
+        }
+    }
+
     public partial class WitAdminToolForm : Form
     {
         TfsTeamProjectCollection tfsTPC;
         WorkItemStore workitemStore;
 
         #region Initialize
-        public WitAdminToolForm()
+        public WitAdminToolForm(TfsTeamProjectCollection tfsTPCConnection)
         {
             InitializeComponent();
             try
             {
-                TeamProjectPicker tpp = new TeamProjectPicker();
-                if (tpp.ShowDialog() == DialogResult.OK)
-                {
-                    tfsTPC = tpp.SelectedTeamProjectCollection;
-
-                    workitemStore = (WorkItemStore)tfsTPC.GetService(typeof(WorkItemStore));
-                    this.lblCollection.Text = tfsTPC.Uri.AbsoluteUri;
-
-                    InitForm();
-                }
-            }
+                tfsTPC = tfsTPCConnection;
+                InitForm();
+             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
-                
             }
         }
- 
+
  
         private void InitForm()
         {
+            workitemStore = (WorkItemStore)tfsTPC.GetService(typeof(WorkItemStore));
+            this.lblCollection.Text = tfsTPC.Uri.AbsoluteUri;
+            this.tabControl_ProjectLevelActions.SelectedIndex = 0;
+
             InitProjects();
             InitWorkItemTypePage();
             
@@ -74,11 +89,6 @@ namespace WitAdminTool
                 if (tpp.ShowDialog() == DialogResult.OK)
                 {
                     tfsTPC = tpp.SelectedTeamProjectCollection;
-
-                    workitemStore = (WorkItemStore)tfsTPC.GetService(typeof(WorkItemStore));
-                    this.lblCollection.Text = tfsTPC.Uri.AbsoluteUri;
-
-                    this.tabControl_ProjectLevelActions.SelectedIndex = 0;
                 }
             }
             catch (Exception ex)
@@ -1008,7 +1018,7 @@ namespace WitAdminTool
 
         private void btnCategoriesImportFromXml_Click(object sender, EventArgs e)
         {
-            ImportFromXMLHelper(WitadminActions.IMPORTCATEGORIES, "Global List", txtCateXml.Text);
+            ImportFromXMLHelper(WitadminActions.IMPORTCATEGORIES, "Categories", txtCateXml.Text);
         }
 
         private void btnCategories_ImportFromFile_Click(object sender, EventArgs e)
@@ -1016,7 +1026,43 @@ namespace WitAdminTool
             ImportFromFileHelper(WitadminActions.IMPORTCATEGORIES, "Categories");
         }
 
-        #endregion       
+        #endregion
+
+        #region Process Configuration
+
+        private void btnProcessConfig_Export_Click(object sender, EventArgs e)
+        {
+            if (radioButtonMode_GetHelpOnCommand.Checked)
+            {
+                GenerateHelpOnComand(WitadminActions.EXPORTPROCESSCONFIG);
+                return;
+            }
+
+            if (textBoxExportPath.Text.Length == 0)
+            {
+                MessageBox.Show("Select Export Path");
+                return;
+            }
+
+            string project = listProject.SelectedItem.ToString();
+            string xmlFilePath = textBoxExportPath.Text + Path.DirectorySeparatorChar + project.Replace(" ", string.Empty) + ".xml";
+            string command = GenerateComand(WitadminActions.EXPORTPROCESSCONFIG, xmlFilePath);
+            ExcuteCommand(string.Empty, command);
+
+            txtProcessConfigXml.Text = ReadFileToXmlControl(xmlFilePath);
+        }
+
+        private void btnProcessConfig_ImportFromXml_Click(object sender, EventArgs e)
+        {
+            ImportFromXMLHelper(WitadminActions.IMPORTPROCESSCONFIG, "Process Configuration", txtProcessConfigXml.Text);
+        }
+
+        private void btnProcessConfig_ImportFromFile_Click(object sender, EventArgs e)
+        {
+            ImportFromFileHelper(WitadminActions.IMPORTPROCESSCONFIG, "Process Configuration");
+        }
+
+        #endregion   
 
         #region Generate Command
 
@@ -1041,7 +1087,9 @@ namespace WitAdminTool
             IMPORTGLOBALLIST,
             DESTROYGLOBALLIST,
             EXPORTCATEGORIES,
-            IMPORTCATEGORIES
+            IMPORTCATEGORIES,
+            EXPORTPROCESSCONFIG,
+            IMPORTPROCESSCONFIG
         };
 
         private void GenerateHelpOnComand(WitadminActions action)
@@ -1051,29 +1099,31 @@ namespace WitAdminTool
 
             string command = string.Empty;
 
-            string getHelpFormat= @"{0} /?";
+            string getHelpFormat = @"{0} /?";
             switch (action)
             {
-                case WitadminActions.EXPORTWITD:            command = string.Format(getHelpFormat, "exportwitd"); break;
-                case WitadminActions.IMPORTWITD:            
-                case WitadminActions.IMPORTWITD_V:          command = string.Format(getHelpFormat, "importwitd"); break;
-                case WitadminActions.DESTROYWITD:           command = string.Format(getHelpFormat, "destroywitd");break;
-                case WitadminActions.RENAMEWITD:            command = string.Format(getHelpFormat, "renamewitd");break;
-                case WitadminActions.EXPORTCATEGORIES:      command = string.Format(getHelpFormat, "exportcategories");break;
-                case WitadminActions.IMPORTCATEGORIES:      command = string.Format(getHelpFormat, "importcategories");break;
-                case WitadminActions.DESTROYWI:             command = string.Format(getHelpFormat, "destroywi"); break;
-                case WitadminActions.DELETEFIELD:           command = string.Format(getHelpFormat, "deletefield");break;
-                case WitadminActions.CHANGEFIELD_1: 
-                case WitadminActions.CHANGEFIELD_2:         command = string.Format(getHelpFormat, "changefield");break;
-                case WitadminActions.INDEXFIELD:            command = string.Format(getHelpFormat, "indexfield"); break;
-                case WitadminActions.DELETELINKTYPE:        command = string.Format(getHelpFormat, "deletelinktype"); break;
-                case WitadminActions.EXPORTLINKTYPE:        command = string.Format(getHelpFormat, "exportlinktype"); break;
-                case WitadminActions.IMPORTLINKTYPE:        command = string.Format(getHelpFormat, "importlinktype"); break;
-                case WitadminActions.DEACTIVATELINKTYPE:    command = string.Format(getHelpFormat, "deactivatelinktype"); break;
-                case WitadminActions.REACTIVATELINKTYPE:    command = string.Format(getHelpFormat, "reactivatelinktype"); break;
-                case WitadminActions.EXPORTGLOBALLIST:      command = string.Format(getHelpFormat, "exportgloballist"); break;
-                case WitadminActions.IMPORTGLOBALLIST:      command = string.Format(getHelpFormat, "importgloballist"); break;
-                case WitadminActions.DESTROYGLOBALLIST:     command = string.Format(getHelpFormat, "destroygloballist"); break;
+                case WitadminActions.EXPORTWITD: command = string.Format(getHelpFormat, "exportwitd"); break;
+                case WitadminActions.IMPORTWITD:
+                case WitadminActions.IMPORTWITD_V: command = string.Format(getHelpFormat, "importwitd"); break;
+                case WitadminActions.DESTROYWITD: command = string.Format(getHelpFormat, "destroywitd"); break;
+                case WitadminActions.RENAMEWITD: command = string.Format(getHelpFormat, "renamewitd"); break;
+                case WitadminActions.EXPORTCATEGORIES: command = string.Format(getHelpFormat, "exportcategories"); break;
+                case WitadminActions.IMPORTCATEGORIES: command = string.Format(getHelpFormat, "importcategories"); break;
+                case WitadminActions.DESTROYWI: command = string.Format(getHelpFormat, "destroywi"); break;
+                case WitadminActions.DELETEFIELD: command = string.Format(getHelpFormat, "deletefield"); break;
+                case WitadminActions.CHANGEFIELD_1:
+                case WitadminActions.CHANGEFIELD_2: command = string.Format(getHelpFormat, "changefield"); break;
+                case WitadminActions.INDEXFIELD: command = string.Format(getHelpFormat, "indexfield"); break;
+                case WitadminActions.DELETELINKTYPE: command = string.Format(getHelpFormat, "deletelinktype"); break;
+                case WitadminActions.EXPORTLINKTYPE: command = string.Format(getHelpFormat, "exportlinktype"); break;
+                case WitadminActions.IMPORTLINKTYPE: command = string.Format(getHelpFormat, "importlinktype"); break;
+                case WitadminActions.DEACTIVATELINKTYPE: command = string.Format(getHelpFormat, "deactivatelinktype"); break;
+                case WitadminActions.REACTIVATELINKTYPE: command = string.Format(getHelpFormat, "reactivatelinktype"); break;
+                case WitadminActions.EXPORTGLOBALLIST: command = string.Format(getHelpFormat, "exportgloballist"); break;
+                case WitadminActions.IMPORTGLOBALLIST: command = string.Format(getHelpFormat, "importgloballist"); break;
+                case WitadminActions.DESTROYGLOBALLIST: command = string.Format(getHelpFormat, "destroygloballist"); break;
+                case WitadminActions.EXPORTPROCESSCONFIG: command = string.Format(getHelpFormat, "exportprocessconfig"); break;
+                case WitadminActions.IMPORTPROCESSCONFIG: command = string.Format(getHelpFormat, "importprocessconfig "); break;
                 default:
                     throw new NotSupportedException();
             }
@@ -1097,6 +1147,8 @@ namespace WitAdminTool
                 case WitadminActions.DESTROYWI:
                 case WitadminActions.EXPORTCATEGORIES:
                 case WitadminActions.IMPORTCATEGORIES:
+                case WitadminActions.EXPORTPROCESSCONFIG:
+                case WitadminActions.IMPORTPROCESSCONFIG:
                     if (this.listProject.SelectedItem == null)
                     {
                         MessageBox.Show("Project not selected", "Caution", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -1112,7 +1164,7 @@ namespace WitAdminTool
             object[] commonParametersProjectCollection = { collection, project };
             object[] parametersProject = commonParametersCollection.Concat(args).ToArray();
             object[] parametersProjectCollection = commonParametersProjectCollection.Concat(args).ToArray();
-           
+
             switch (action)
             {
                 case WitadminActions.EXPORTWITD:
@@ -1134,10 +1186,16 @@ namespace WitAdminTool
                     command = string.Format(@"renamewitd /collection:{0} /p:""{1}"" /n:""{2}"" /new:""{3}"" /noprompt", parametersProjectCollection);
                     break;
                 case WitadminActions.EXPORTCATEGORIES:
-                    command = string.Format(@"exportcategories /collection:{0} /p:""{1}"" /f:{2}", parametersProjectCollection);
+                    command = string.Format(@"exportcategories /collection:{0} /p:""{1}"" /f:""{2}""", parametersProjectCollection);
                     break;
                 case WitadminActions.IMPORTCATEGORIES:
-                    command = string.Format(@"importcategories /collection:{0} /p:""{1}"" /f:{2}", parametersProjectCollection);
+                    command = string.Format(@"importcategories /collection:{0} /p:""{1}"" /f:""{2}""", parametersProjectCollection);
+                    break;
+                case WitadminActions.EXPORTPROCESSCONFIG:
+                    command = string.Format(@"exportprocessconfig /collection:{0} /p:""{1}"" /f:""{2}""", parametersProjectCollection);
+                    break;
+                case WitadminActions.IMPORTPROCESSCONFIG:
+                    command = string.Format(@"importprocessconfig /collection:{0} /p:""{1}"" /f:""{2}""", parametersProjectCollection);
                     break;
 
                 case WitadminActions.DESTROYWI:
@@ -1376,6 +1434,9 @@ namespace WitAdminTool
             return filePath;
         }
         #endregion
+
+
+
     }
 }
-        
+

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.TeamFoundation.Client;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
@@ -15,7 +16,9 @@ namespace WitAdminTool
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new WitAdminToolForm());
+            TfsTeamProjectCollection tfsTPC = WitAdminTool.Helpers.ConnectToTeamProject();
+            if (tfsTPC != null)
+                Application.Run(new WitAdminToolForm(tfsTPC));
         }
     }
 }
