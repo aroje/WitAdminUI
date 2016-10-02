@@ -29,13 +29,15 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(WitAdminToolForm));
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle37 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle38 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle39 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle40 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle41 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle42 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle43 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle44 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle45 = new System.Windows.Forms.DataGridViewCellStyle();
             this.lblCollection = new System.Windows.Forms.Label();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -55,7 +57,6 @@
             this.tabPageWorkItemTypes = new System.Windows.Forms.TabPage();
             this.label18 = new System.Windows.Forms.Label();
             this.label17 = new System.Windows.Forms.Label();
-            this.txtWitXml = new System.Windows.Forms.TextBox();
             this.txtNewWitName = new System.Windows.Forms.TextBox();
             this.btnWit_ImportFromFile = new System.Windows.Forms.Button();
             this.btnWit_ValidateFile = new System.Windows.Forms.Button();
@@ -87,18 +88,21 @@
             this.tabPageCategories = new System.Windows.Forms.TabPage();
             this.btnCategories_ImportFromFile = new System.Windows.Forms.Button();
             this.label10 = new System.Windows.Forms.Label();
-            this.txtCateXml = new System.Windows.Forms.TextBox();
             this.btnCategories_ImportFromXml = new System.Windows.Forms.Button();
             this.btnCategories_Export = new System.Windows.Forms.Button();
             this.tabPageProcessConfig = new System.Windows.Forms.TabPage();
             this.btnProcessConfig_ImportFromFile = new System.Windows.Forms.Button();
             this.btnProcessConfig_ImportFromXML = new System.Windows.Forms.Button();
             this.btnProcessConfig_Export = new System.Windows.Forms.Button();
-            this.txtProcessConfigXml = new System.Windows.Forms.TextBox();
             this.label23 = new System.Windows.Forms.Label();
             this.tabPageCollectionLevelActions = new System.Windows.Forms.TabPage();
             this.tabControl_CollectionLevelActions = new System.Windows.Forms.TabControl();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.gvFields = new System.Windows.Forms.DataGridView();
+            this.label24 = new System.Windows.Forms.Label();
+            this.txtFdSearchStringFoundCount = new System.Windows.Forms.TextBox();
+            this.btnFdSearchString = new System.Windows.Forms.Button();
+            this.txtFdSearchString = new System.Windows.Forms.TextBox();
             this.btnFields_Index = new System.Windows.Forms.Button();
             this.cbbIndexYN = new System.Windows.Forms.ComboBox();
             this.label9 = new System.Windows.Forms.Label();
@@ -112,12 +116,9 @@
             this.txtFdType = new System.Windows.Forms.TextBox();
             this.txtFdName = new System.Windows.Forms.TextBox();
             this.txtFdRefName = new System.Windows.Forms.TextBox();
-            this.listFields = new System.Windows.Forms.ListBox();
-            this.label3 = new System.Windows.Forms.Label();
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.btnLinks_ImportFromFile = new System.Windows.Forms.Button();
             this.label20 = new System.Windows.Forms.Label();
-            this.txtLinkXml = new System.Windows.Forms.TextBox();
             this.btnLinks_Reactivate = new System.Windows.Forms.Button();
             this.btnLinks_Deactivate = new System.Windows.Forms.Button();
             this.btnLinks_ImportFromXml = new System.Windows.Forms.Button();
@@ -133,7 +134,6 @@
             this.btnGL_ImportFromList = new System.Windows.Forms.Button();
             this.btnGL_Import = new System.Windows.Forms.Button();
             this.btnGL_Export = new System.Windows.Forms.Button();
-            this.txtGLXml = new System.Windows.Forms.TextBox();
             this.treeViewGlobalLists = new System.Windows.Forms.TreeView();
             this.label14 = new System.Windows.Forms.Label();
             this.btnExportImport_OpenFIle = new System.Windows.Forms.Button();
@@ -148,6 +148,14 @@
             this.radioButtonMode_GenerateOnly = new System.Windows.Forms.RadioButton();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.radioButtonMode_GetHelpOnCommand = new System.Windows.Forms.RadioButton();
+            this.txtWitXml = new System.Windows.Forms.RichTextBox();
+            this.txtCategoryXml = new System.Windows.Forms.RichTextBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.txtProcessConfigXml = new System.Windows.Forms.RichTextBox();
+            this.txtGLXml = new System.Windows.Forms.RichTextBox();
+            this.txtLinkXml = new System.Windows.Forms.RichTextBox();
+            this.expandAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.collapseAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStrip1.SuspendLayout();
             this.tabControlContainer.SuspendLayout();
             this.tabPageProjectLevelActions.SuspendLayout();
@@ -162,6 +170,7 @@
             this.tabPageCollectionLevelActions.SuspendLayout();
             this.tabControl_CollectionLevelActions.SuspendLayout();
             this.tabPage3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.gvFields)).BeginInit();
             this.tabPage4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gvLink)).BeginInit();
             this.tabPage5.SuspendLayout();
@@ -172,7 +181,7 @@
             // 
             // lblCollection
             // 
-            this.lblCollection.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            this.lblCollection.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lblCollection.BackColor = System.Drawing.Color.Gainsboro;
             this.lblCollection.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
@@ -188,9 +197,11 @@
             this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.editToolStripMenuItem,
             this.addToolStripMenuItem,
-            this.deleteToolStripMenuItem});
+            this.deleteToolStripMenuItem,
+            this.expandAllToolStripMenuItem,
+            this.collapseAllToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(108, 70);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(153, 136);
             // 
             // editToolStripMenuItem
             // 
@@ -233,8 +244,8 @@
             // 
             // textBoxResult
             // 
-            this.textBoxResult.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)
+            this.textBoxResult.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxResult.Location = new System.Drawing.Point(6, 71);
             this.textBoxResult.Multiline = true;
@@ -263,7 +274,7 @@
             // 
             // textBoxCommand
             // 
-            this.textBoxCommand.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            this.textBoxCommand.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxCommand.Location = new System.Drawing.Point(5, 32);
             this.textBoxCommand.Name = "textBoxCommand";
@@ -286,7 +297,7 @@
             // 
             // tabControlContainer
             // 
-            this.tabControlContainer.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            this.tabControlContainer.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControlContainer.Controls.Add(this.tabPageProjectLevelActions);
             this.tabControlContainer.Controls.Add(this.tabPageCollectionLevelActions);
@@ -312,7 +323,7 @@
             // 
             // tabControl_ProjectLevelActions
             // 
-            this.tabControl_ProjectLevelActions.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            this.tabControl_ProjectLevelActions.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControl_ProjectLevelActions.Controls.Add(this.tabPageWorkItemTypes);
             this.tabControl_ProjectLevelActions.Controls.Add(this.tabPageDestroyWorkItems);
@@ -329,9 +340,9 @@
             // tabPageWorkItemTypes
             // 
             this.tabPageWorkItemTypes.BackColor = System.Drawing.Color.White;
+            this.tabPageWorkItemTypes.Controls.Add(this.txtWitXml);
             this.tabPageWorkItemTypes.Controls.Add(this.label18);
             this.tabPageWorkItemTypes.Controls.Add(this.label17);
-            this.tabPageWorkItemTypes.Controls.Add(this.txtWitXml);
             this.tabPageWorkItemTypes.Controls.Add(this.txtNewWitName);
             this.tabPageWorkItemTypes.Controls.Add(this.btnWit_ImportFromFile);
             this.tabPageWorkItemTypes.Controls.Add(this.btnWit_ValidateFile);
@@ -365,18 +376,6 @@
             this.label17.Size = new System.Drawing.Size(32, 13);
             this.label17.TabIndex = 18;
             this.label17.Text = "XML:";
-            // 
-            // txtWitXml
-            // 
-            this.txtWitXml.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtWitXml.Location = new System.Drawing.Point(326, 33);
-            this.txtWitXml.Multiline = true;
-            this.txtWitXml.Name = "txtWitXml";
-            this.txtWitXml.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.txtWitXml.Size = new System.Drawing.Size(404, 342);
-            this.txtWitXml.TabIndex = 7;
             // 
             // txtNewWitName
             // 
@@ -453,6 +452,7 @@
             this.listWit.Name = "listWit";
             this.listWit.Size = new System.Drawing.Size(311, 212);
             this.listWit.TabIndex = 4;
+            this.listWit.SelectedIndexChanged += new System.EventHandler(this.listWit_SelectedIndexChanged);
             // 
             // label2
             // 
@@ -477,7 +477,7 @@
             // 
             // groupBox2
             // 
-            this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox2.Controls.Add(this.btnDestroyWi_UnselectAllWis);
             this.groupBox2.Controls.Add(this.radioButtonAllProjects);
@@ -531,7 +531,7 @@
             // 
             // label16
             // 
-            this.label16.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            this.label16.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.label16.AutoSize = true;
             this.label16.Location = new System.Drawing.Point(401, 27);
@@ -542,7 +542,7 @@
             // 
             // lbl_WI_WICount
             // 
-            this.lbl_WI_WICount.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            this.lbl_WI_WICount.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lbl_WI_WICount.AutoSize = true;
             this.lbl_WI_WICount.Location = new System.Drawing.Point(501, 25);
@@ -594,39 +594,39 @@
             // 
             // gvWi
             // 
-            this.gvWi.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)
+            this.gvWi.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.gvWi.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Gulim", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.gvWi.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle37.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle37.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle37.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            dataGridViewCellStyle37.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle37.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle37.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle37.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.gvWi.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle37;
             this.gvWi.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.gvWi.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Column1});
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Gulim", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.gvWi.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle38.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle38.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle38.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            dataGridViewCellStyle38.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle38.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle38.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle38.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.gvWi.DefaultCellStyle = dataGridViewCellStyle38;
             this.gvWi.Location = new System.Drawing.Point(10, 46);
             this.gvWi.Name = "gvWi";
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Gulim", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.gvWi.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle39.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle39.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle39.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            dataGridViewCellStyle39.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle39.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle39.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle39.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.gvWi.RowHeadersDefaultCellStyle = dataGridViewCellStyle39;
             this.gvWi.RowTemplate.Height = 23;
             this.gvWi.Size = new System.Drawing.Size(706, 255);
             this.gvWi.TabIndex = 2;
@@ -645,7 +645,7 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox1.Controls.Add(this.txtWiID);
             this.groupBox1.Controls.Add(this.btnDestroyWi_DeleteByIDs);
@@ -696,9 +696,9 @@
             // 
             // tabPageCategories
             // 
+            this.tabPageCategories.Controls.Add(this.txtCategoryXml);
             this.tabPageCategories.Controls.Add(this.btnCategories_ImportFromFile);
             this.tabPageCategories.Controls.Add(this.label10);
-            this.tabPageCategories.Controls.Add(this.txtCateXml);
             this.tabPageCategories.Controls.Add(this.btnCategories_ImportFromXml);
             this.tabPageCategories.Controls.Add(this.btnCategories_Export);
             this.tabPageCategories.Location = new System.Drawing.Point(4, 22);
@@ -711,7 +711,7 @@
             // 
             // btnCategories_ImportFromFile
             // 
-            this.btnCategories_ImportFromFile.Location = new System.Drawing.Point(9, 376);
+            this.btnCategories_ImportFromFile.Location = new System.Drawing.Point(123, 381);
             this.btnCategories_ImportFromFile.Name = "btnCategories_ImportFromFile";
             this.btnCategories_ImportFromFile.Size = new System.Drawing.Size(108, 25);
             this.btnCategories_ImportFromFile.TabIndex = 20;
@@ -722,28 +722,16 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(6, 17);
+            this.label10.Location = new System.Drawing.Point(6, 12);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(32, 13);
             this.label10.TabIndex = 19;
             this.label10.Text = "XML:";
             // 
-            // txtCateXml
-            // 
-            this.txtCateXml.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtCateXml.Location = new System.Drawing.Point(9, 33);
-            this.txtCateXml.Multiline = true;
-            this.txtCateXml.Name = "txtCateXml";
-            this.txtCateXml.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.txtCateXml.Size = new System.Drawing.Size(721, 283);
-            this.txtCateXml.TabIndex = 11;
-            // 
             // btnCategories_ImportFromXml
             // 
             this.btnCategories_ImportFromXml.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnCategories_ImportFromXml.Location = new System.Drawing.Point(622, 345);
+            this.btnCategories_ImportFromXml.Location = new System.Drawing.Point(237, 381);
             this.btnCategories_ImportFromXml.Name = "btnCategories_ImportFromXml";
             this.btnCategories_ImportFromXml.Size = new System.Drawing.Size(108, 25);
             this.btnCategories_ImportFromXml.TabIndex = 10;
@@ -753,7 +741,7 @@
             // 
             // btnCategories_Export
             // 
-            this.btnCategories_Export.Location = new System.Drawing.Point(9, 345);
+            this.btnCategories_Export.Location = new System.Drawing.Point(9, 381);
             this.btnCategories_Export.Name = "btnCategories_Export";
             this.btnCategories_Export.Size = new System.Drawing.Size(108, 25);
             this.btnCategories_Export.TabIndex = 9;
@@ -763,11 +751,11 @@
             // 
             // tabPageProcessConfig
             // 
+            this.tabPageProcessConfig.Controls.Add(this.txtProcessConfigXml);
+            this.tabPageProcessConfig.Controls.Add(this.label3);
             this.tabPageProcessConfig.Controls.Add(this.btnProcessConfig_ImportFromFile);
             this.tabPageProcessConfig.Controls.Add(this.btnProcessConfig_ImportFromXML);
             this.tabPageProcessConfig.Controls.Add(this.btnProcessConfig_Export);
-            this.tabPageProcessConfig.Controls.Add(this.txtProcessConfigXml);
-            this.tabPageProcessConfig.Controls.Add(this.label23);
             this.tabPageProcessConfig.Location = new System.Drawing.Point(4, 22);
             this.tabPageProcessConfig.Name = "tabPageProcessConfig";
             this.tabPageProcessConfig.Padding = new System.Windows.Forms.Padding(3);
@@ -778,7 +766,7 @@
             // 
             // btnProcessConfig_ImportFromFile
             // 
-            this.btnProcessConfig_ImportFromFile.Location = new System.Drawing.Point(6, 362);
+            this.btnProcessConfig_ImportFromFile.Location = new System.Drawing.Point(123, 381);
             this.btnProcessConfig_ImportFromFile.Name = "btnProcessConfig_ImportFromFile";
             this.btnProcessConfig_ImportFromFile.Size = new System.Drawing.Size(108, 25);
             this.btnProcessConfig_ImportFromFile.TabIndex = 24;
@@ -789,7 +777,7 @@
             // btnProcessConfig_ImportFromXML
             // 
             this.btnProcessConfig_ImportFromXML.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnProcessConfig_ImportFromXML.Location = new System.Drawing.Point(619, 331);
+            this.btnProcessConfig_ImportFromXML.Location = new System.Drawing.Point(237, 381);
             this.btnProcessConfig_ImportFromXML.Name = "btnProcessConfig_ImportFromXML";
             this.btnProcessConfig_ImportFromXML.Size = new System.Drawing.Size(108, 25);
             this.btnProcessConfig_ImportFromXML.TabIndex = 23;
@@ -799,7 +787,7 @@
             // 
             // btnProcessConfig_Export
             // 
-            this.btnProcessConfig_Export.Location = new System.Drawing.Point(6, 331);
+            this.btnProcessConfig_Export.Location = new System.Drawing.Point(9, 381);
             this.btnProcessConfig_Export.Name = "btnProcessConfig_Export";
             this.btnProcessConfig_Export.Size = new System.Drawing.Size(108, 25);
             this.btnProcessConfig_Export.TabIndex = 22;
@@ -807,26 +795,14 @@
             this.btnProcessConfig_Export.UseVisualStyleBackColor = true;
             this.btnProcessConfig_Export.Click += new System.EventHandler(this.btnProcessConfig_Export_Click);
             // 
-            // txtProcessConfigXml
-            // 
-            this.txtProcessConfigXml.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtProcessConfigXml.Location = new System.Drawing.Point(3, 28);
-            this.txtProcessConfigXml.Multiline = true;
-            this.txtProcessConfigXml.Name = "txtProcessConfigXml";
-            this.txtProcessConfigXml.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.txtProcessConfigXml.Size = new System.Drawing.Size(721, 283);
-            this.txtProcessConfigXml.TabIndex = 21;
-            // 
             // label23
             // 
             this.label23.AutoSize = true;
-            this.label23.Location = new System.Drawing.Point(6, 12);
+            this.label23.Location = new System.Drawing.Point(8, 11);
             this.label23.Name = "label23";
-            this.label23.Size = new System.Drawing.Size(32, 13);
-            this.label23.TabIndex = 20;
-            this.label23.Text = "XML:";
+            this.label23.Size = new System.Drawing.Size(41, 13);
+            this.label23.TabIndex = 18;
+            this.label23.Text = "Search";
             // 
             // tabPageCollectionLevelActions
             // 
@@ -841,7 +817,7 @@
             // 
             // tabControl_CollectionLevelActions
             // 
-            this.tabControl_CollectionLevelActions.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            this.tabControl_CollectionLevelActions.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControl_CollectionLevelActions.Controls.Add(this.tabPage3);
             this.tabControl_CollectionLevelActions.Controls.Add(this.tabPage4);
@@ -856,6 +832,12 @@
             // 
             // tabPage3
             // 
+            this.tabPage3.Controls.Add(this.gvFields);
+            this.tabPage3.Controls.Add(this.label24);
+            this.tabPage3.Controls.Add(this.txtFdSearchStringFoundCount);
+            this.tabPage3.Controls.Add(this.btnFdSearchString);
+            this.tabPage3.Controls.Add(this.label23);
+            this.tabPage3.Controls.Add(this.txtFdSearchString);
             this.tabPage3.Controls.Add(this.btnFields_Index);
             this.tabPage3.Controls.Add(this.cbbIndexYN);
             this.tabPage3.Controls.Add(this.label9);
@@ -869,8 +851,6 @@
             this.tabPage3.Controls.Add(this.txtFdType);
             this.tabPage3.Controls.Add(this.txtFdName);
             this.tabPage3.Controls.Add(this.txtFdRefName);
-            this.tabPage3.Controls.Add(this.listFields);
-            this.tabPage3.Controls.Add(this.label3);
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Size = new System.Drawing.Size(923, 435);
@@ -878,12 +858,92 @@
             this.tabPage3.Text = "Fields";
             this.tabPage3.UseVisualStyleBackColor = true;
             // 
+            // gvFields
+            // 
+            this.gvFields.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.gvFields.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            dataGridViewCellStyle40.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle40.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle40.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            dataGridViewCellStyle40.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle40.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle40.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle40.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.gvFields.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle40;
+            this.gvFields.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewCellStyle41.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle41.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle41.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            dataGridViewCellStyle41.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle41.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle41.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle41.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.gvFields.DefaultCellStyle = dataGridViewCellStyle41;
+            this.gvFields.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
+            this.gvFields.Location = new System.Drawing.Point(11, 34);
+            this.gvFields.MultiSelect = false;
+            this.gvFields.Name = "gvFields";
+            dataGridViewCellStyle42.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle42.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle42.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            dataGridViewCellStyle42.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle42.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle42.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle42.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.gvFields.RowHeadersDefaultCellStyle = dataGridViewCellStyle42;
+            this.gvFields.RowTemplate.Height = 23;
+            this.gvFields.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.gvFields.Size = new System.Drawing.Size(907, 325);
+            this.gvFields.TabIndex = 22;
+            this.gvFields.SelectionChanged += new System.EventHandler(this.gvFields_SelectionChanged);
+            // 
+            // label24
+            // 
+            this.label24.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label24.AutoSize = true;
+            this.label24.Location = new System.Drawing.Point(482, 11);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(37, 13);
+            this.label24.TabIndex = 21;
+            this.label24.Text = "Found";
+            // 
+            // txtFdSearchStringFoundCount
+            // 
+            this.txtFdSearchStringFoundCount.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtFdSearchStringFoundCount.Location = new System.Drawing.Point(525, 8);
+            this.txtFdSearchStringFoundCount.Name = "txtFdSearchStringFoundCount";
+            this.txtFdSearchStringFoundCount.ReadOnly = true;
+            this.txtFdSearchStringFoundCount.Size = new System.Drawing.Size(48, 20);
+            this.txtFdSearchStringFoundCount.TabIndex = 20;
+            // 
+            // btnFdSearchString
+            // 
+            this.btnFdSearchString.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnFdSearchString.Location = new System.Drawing.Point(412, 8);
+            this.btnFdSearchString.Name = "btnFdSearchString";
+            this.btnFdSearchString.Size = new System.Drawing.Size(64, 20);
+            this.btnFdSearchString.TabIndex = 19;
+            this.btnFdSearchString.Text = "Search";
+            this.btnFdSearchString.UseVisualStyleBackColor = true;
+            this.btnFdSearchString.Click += new System.EventHandler(this.btnFdSearchString_Click);
+            // 
+            // txtFdSearchString
+            // 
+            this.txtFdSearchString.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtFdSearchString.Location = new System.Drawing.Point(55, 8);
+            this.txtFdSearchString.Name = "txtFdSearchString";
+            this.txtFdSearchString.Size = new System.Drawing.Size(351, 20);
+            this.txtFdSearchString.TabIndex = 17;
+            this.txtFdSearchString.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtFdSearchString_KeyDown);
+            // 
             // btnFields_Index
             // 
             this.btnFields_Index.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnFields_Index.Location = new System.Drawing.Point(698, 212);
+            this.btnFields_Index.Location = new System.Drawing.Point(752, 374);
             this.btnFields_Index.Name = "btnFields_Index";
-            this.btnFields_Index.Size = new System.Drawing.Size(64, 25);
+            this.btnFields_Index.Size = new System.Drawing.Size(47, 25);
             this.btnFields_Index.TabIndex = 16;
             this.btnFields_Index.Text = "Index";
             this.btnFields_Index.UseVisualStyleBackColor = true;
@@ -896,16 +956,16 @@
             this.cbbIndexYN.Items.AddRange(new object[] {
             "Y",
             "N"});
-            this.cbbIndexYN.Location = new System.Drawing.Point(665, 163);
+            this.cbbIndexYN.Location = new System.Drawing.Point(704, 378);
             this.cbbIndexYN.Name = "cbbIndexYN";
-            this.cbbIndexYN.Size = new System.Drawing.Size(237, 21);
+            this.cbbIndexYN.Size = new System.Drawing.Size(42, 21);
             this.cbbIndexYN.TabIndex = 15;
             // 
             // label9
             // 
             this.label9.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(571, 166);
+            this.label9.Location = new System.Drawing.Point(698, 362);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(45, 13);
             this.label9.TabIndex = 14;
@@ -914,9 +974,9 @@
             // btnFields_Change
             // 
             this.btnFields_Change.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnFields_Change.Location = new System.Drawing.Point(837, 212);
+            this.btnFields_Change.Location = new System.Drawing.Point(858, 374);
             this.btnFields_Change.Name = "btnFields_Change";
-            this.btnFields_Change.Size = new System.Drawing.Size(64, 25);
+            this.btnFields_Change.Size = new System.Drawing.Size(60, 25);
             this.btnFields_Change.TabIndex = 13;
             this.btnFields_Change.Text = "Change";
             this.btnFields_Change.UseVisualStyleBackColor = true;
@@ -925,9 +985,9 @@
             // btnFields_Delete
             // 
             this.btnFields_Delete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnFields_Delete.Location = new System.Drawing.Point(767, 212);
+            this.btnFields_Delete.Location = new System.Drawing.Point(805, 374);
             this.btnFields_Delete.Name = "btnFields_Delete";
-            this.btnFields_Delete.Size = new System.Drawing.Size(64, 25);
+            this.btnFields_Delete.Size = new System.Drawing.Size(47, 25);
             this.btnFields_Delete.TabIndex = 12;
             this.btnFields_Delete.Text = "Delete";
             this.btnFields_Delete.UseVisualStyleBackColor = true;
@@ -937,7 +997,7 @@
             // 
             this.label7.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(571, 131);
+            this.label7.Location = new System.Drawing.Point(586, 362);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(66, 13);
             this.label7.TabIndex = 10;
@@ -947,7 +1007,7 @@
             // 
             this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(571, 102);
+            this.label6.Location = new System.Drawing.Point(492, 363);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(31, 13);
             this.label6.TabIndex = 9;
@@ -957,7 +1017,7 @@
             // 
             this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(571, 73);
+            this.label5.Location = new System.Drawing.Point(249, 362);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(35, 13);
             this.label5.TabIndex = 8;
@@ -965,9 +1025,10 @@
             // 
             // label4
             // 
-            this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(571, 43);
+            this.label4.Location = new System.Drawing.Point(6, 363);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(88, 13);
             this.label4.TabIndex = 7;
@@ -982,62 +1043,43 @@
             "dimension",
             "detail",
             "measure"});
-            this.cbbFdReportType.Location = new System.Drawing.Point(665, 128);
+            this.cbbFdReportType.Location = new System.Drawing.Point(589, 378);
             this.cbbFdReportType.Name = "cbbFdReportType";
-            this.cbbFdReportType.Size = new System.Drawing.Size(237, 21);
+            this.cbbFdReportType.Size = new System.Drawing.Size(109, 21);
             this.cbbFdReportType.TabIndex = 5;
             // 
             // txtFdType
             // 
             this.txtFdType.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtFdType.Location = new System.Drawing.Point(665, 99);
+            this.txtFdType.Location = new System.Drawing.Point(495, 379);
             this.txtFdType.Name = "txtFdType";
             this.txtFdType.ReadOnly = true;
-            this.txtFdType.Size = new System.Drawing.Size(237, 20);
+            this.txtFdType.Size = new System.Drawing.Size(87, 20);
             this.txtFdType.TabIndex = 4;
             // 
             // txtFdName
             // 
             this.txtFdName.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtFdName.Location = new System.Drawing.Point(665, 69);
+            this.txtFdName.Location = new System.Drawing.Point(252, 379);
             this.txtFdName.Name = "txtFdName";
             this.txtFdName.Size = new System.Drawing.Size(237, 20);
             this.txtFdName.TabIndex = 3;
             // 
             // txtFdRefName
             // 
-            this.txtFdRefName.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtFdRefName.Location = new System.Drawing.Point(665, 40);
+            this.txtFdRefName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtFdRefName.Location = new System.Drawing.Point(9, 379);
             this.txtFdRefName.Name = "txtFdRefName";
             this.txtFdRefName.ReadOnly = true;
             this.txtFdRefName.Size = new System.Drawing.Size(237, 20);
             this.txtFdRefName.TabIndex = 2;
             // 
-            // listFields
-            // 
-            this.listFields.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.listFields.FormattingEnabled = true;
-            this.listFields.Location = new System.Drawing.Point(8, 40);
-            this.listFields.Name = "listFields";
-            this.listFields.Size = new System.Drawing.Size(557, 355);
-            this.listFields.TabIndex = 1;
-            this.listFields.SelectedIndexChanged += new System.EventHandler(this.listFields_SelectedIndexChanged);
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(6, 14);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(34, 13);
-            this.label3.TabIndex = 0;
-            this.label3.Text = "Fields";
-            // 
             // tabPage4
             // 
+            this.tabPage4.Controls.Add(this.txtLinkXml);
             this.tabPage4.Controls.Add(this.btnLinks_ImportFromFile);
             this.tabPage4.Controls.Add(this.label20);
-            this.tabPage4.Controls.Add(this.txtLinkXml);
             this.tabPage4.Controls.Add(this.btnLinks_Reactivate);
             this.tabPage4.Controls.Add(this.btnLinks_Deactivate);
             this.tabPage4.Controls.Add(this.btnLinks_ImportFromXml);
@@ -1054,9 +1096,10 @@
             // 
             // btnLinks_ImportFromFile
             // 
-            this.btnLinks_ImportFromFile.Location = new System.Drawing.Point(131, 377);
+            this.btnLinks_ImportFromFile.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnLinks_ImportFromFile.Location = new System.Drawing.Point(806, 370);
             this.btnLinks_ImportFromFile.Name = "btnLinks_ImportFromFile";
-            this.btnLinks_ImportFromFile.Size = new System.Drawing.Size(125, 25);
+            this.btnLinks_ImportFromFile.Size = new System.Drawing.Size(114, 25);
             this.btnLinks_ImportFromFile.TabIndex = 20;
             this.btnLinks_ImportFromFile.Text = "Import from File";
             this.btnLinks_ImportFromFile.UseVisualStyleBackColor = true;
@@ -1065,29 +1108,18 @@
             // label20
             // 
             this.label20.AutoSize = true;
-            this.label20.Location = new System.Drawing.Point(660, 12);
+            this.label20.Location = new System.Drawing.Point(7, 288);
             this.label20.Name = "label20";
             this.label20.Size = new System.Drawing.Size(32, 13);
             this.label20.TabIndex = 19;
             this.label20.Text = "XML:";
             // 
-            // txtLinkXml
-            // 
-            this.txtLinkXml.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtLinkXml.Location = new System.Drawing.Point(663, 28);
-            this.txtLinkXml.Multiline = true;
-            this.txtLinkXml.Name = "txtLinkXml";
-            this.txtLinkXml.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.txtLinkXml.Size = new System.Drawing.Size(242, 342);
-            this.txtLinkXml.TabIndex = 8;
-            // 
             // btnLinks_Reactivate
             // 
-            this.btnLinks_Reactivate.Location = new System.Drawing.Point(262, 345);
+            this.btnLinks_Reactivate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnLinks_Reactivate.Location = new System.Drawing.Point(806, 89);
             this.btnLinks_Reactivate.Name = "btnLinks_Reactivate";
-            this.btnLinks_Reactivate.Size = new System.Drawing.Size(123, 25);
+            this.btnLinks_Reactivate.Size = new System.Drawing.Size(114, 25);
             this.btnLinks_Reactivate.TabIndex = 6;
             this.btnLinks_Reactivate.Text = "Reactivate";
             this.btnLinks_Reactivate.UseVisualStyleBackColor = true;
@@ -1095,9 +1127,10 @@
             // 
             // btnLinks_Deactivate
             // 
-            this.btnLinks_Deactivate.Location = new System.Drawing.Point(131, 345);
+            this.btnLinks_Deactivate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnLinks_Deactivate.Location = new System.Drawing.Point(806, 58);
             this.btnLinks_Deactivate.Name = "btnLinks_Deactivate";
-            this.btnLinks_Deactivate.Size = new System.Drawing.Size(125, 25);
+            this.btnLinks_Deactivate.Size = new System.Drawing.Size(114, 25);
             this.btnLinks_Deactivate.TabIndex = 5;
             this.btnLinks_Deactivate.Text = "Deactivate";
             this.btnLinks_Deactivate.UseVisualStyleBackColor = true;
@@ -1106,9 +1139,9 @@
             // btnLinks_ImportFromXml
             // 
             this.btnLinks_ImportFromXml.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnLinks_ImportFromXml.Location = new System.Drawing.Point(788, 376);
+            this.btnLinks_ImportFromXml.Location = new System.Drawing.Point(806, 304);
             this.btnLinks_ImportFromXml.Name = "btnLinks_ImportFromXml";
-            this.btnLinks_ImportFromXml.Size = new System.Drawing.Size(117, 25);
+            this.btnLinks_ImportFromXml.Size = new System.Drawing.Size(114, 25);
             this.btnLinks_ImportFromXml.TabIndex = 4;
             this.btnLinks_ImportFromXml.Text = "Import from XML";
             this.btnLinks_ImportFromXml.UseVisualStyleBackColor = true;
@@ -1116,7 +1149,8 @@
             // 
             // btnLinks_Export
             // 
-            this.btnLinks_Export.Location = new System.Drawing.Point(9, 376);
+            this.btnLinks_Export.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnLinks_Export.Location = new System.Drawing.Point(806, 339);
             this.btnLinks_Export.Name = "btnLinks_Export";
             this.btnLinks_Export.Size = new System.Drawing.Size(114, 25);
             this.btnLinks_Export.TabIndex = 3;
@@ -1126,7 +1160,8 @@
             // 
             // btnLinks_Delete
             // 
-            this.btnLinks_Delete.Location = new System.Drawing.Point(8, 345);
+            this.btnLinks_Delete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnLinks_Delete.Location = new System.Drawing.Point(806, 27);
             this.btnLinks_Delete.Name = "btnLinks_Delete";
             this.btnLinks_Delete.Size = new System.Drawing.Size(114, 25);
             this.btnLinks_Delete.TabIndex = 2;
@@ -1136,38 +1171,41 @@
             // 
             // gvLink
             // 
+            this.gvLink.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.gvLink.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Gulim", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.gvLink.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle43.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle43.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle43.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            dataGridViewCellStyle43.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle43.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle43.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle43.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.gvLink.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle43;
             this.gvLink.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("Gulim", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.gvLink.DefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle44.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle44.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle44.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            dataGridViewCellStyle44.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle44.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle44.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle44.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.gvLink.DefaultCellStyle = dataGridViewCellStyle44;
             this.gvLink.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.gvLink.Location = new System.Drawing.Point(8, 28);
             this.gvLink.MultiSelect = false;
             this.gvLink.Name = "gvLink";
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle6.Font = new System.Drawing.Font("Gulim", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.gvLink.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle45.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle45.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle45.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            dataGridViewCellStyle45.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle45.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle45.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle45.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.gvLink.RowHeadersDefaultCellStyle = dataGridViewCellStyle45;
             this.gvLink.RowTemplate.Height = 23;
-            this.gvLink.Size = new System.Drawing.Size(649, 311);
+            this.gvLink.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.gvLink.Size = new System.Drawing.Size(792, 257);
             this.gvLink.TabIndex = 1;
             // 
             // label8
@@ -1181,6 +1219,7 @@
             // 
             // tabPage5
             // 
+            this.tabPage5.Controls.Add(this.txtGLXml);
             this.tabPage5.Controls.Add(this.btnGL_ImportFormFile);
             this.tabPage5.Controls.Add(this.label22);
             this.tabPage5.Controls.Add(this.label21);
@@ -1188,7 +1227,6 @@
             this.tabPage5.Controls.Add(this.btnGL_ImportFromList);
             this.tabPage5.Controls.Add(this.btnGL_Import);
             this.tabPage5.Controls.Add(this.btnGL_Export);
-            this.tabPage5.Controls.Add(this.txtGLXml);
             this.tabPage5.Controls.Add(this.treeViewGlobalLists);
             this.tabPage5.Location = new System.Drawing.Point(4, 22);
             this.tabPage5.Name = "tabPage5";
@@ -1266,18 +1304,6 @@
             this.btnGL_Export.UseVisualStyleBackColor = true;
             this.btnGL_Export.Click += new System.EventHandler(this.btnGLExport_Click);
             // 
-            // txtGLXml
-            // 
-            this.txtGLXml.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtGLXml.Location = new System.Drawing.Point(295, 22);
-            this.txtGLXml.Multiline = true;
-            this.txtGLXml.Name = "txtGLXml";
-            this.txtGLXml.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.txtGLXml.Size = new System.Drawing.Size(625, 345);
-            this.txtGLXml.TabIndex = 9;
-            // 
             // treeViewGlobalLists
             // 
             this.treeViewGlobalLists.ContextMenuStrip = this.contextMenuStrip1;
@@ -1310,7 +1336,7 @@
             // 
             // textBoxImportFilePath
             // 
-            this.textBoxImportFilePath.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            this.textBoxImportFilePath.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxImportFilePath.Location = new System.Drawing.Point(94, 45);
             this.textBoxImportFilePath.Name = "textBoxImportFilePath";
@@ -1339,7 +1365,7 @@
             // 
             // textBoxExportPath
             // 
-            this.textBoxExportPath.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            this.textBoxExportPath.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxExportPath.Location = new System.Drawing.Point(94, 19);
             this.textBoxExportPath.Name = "textBoxExportPath";
@@ -1348,8 +1374,8 @@
             // 
             // groupBox3
             // 
-            this.groupBox3.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)
+            this.groupBox3.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox3.Controls.Add(this.label13);
             this.groupBox3.Controls.Add(this.textBoxCommand);
@@ -1364,7 +1390,7 @@
             // 
             // groupBox4
             // 
-            this.groupBox4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            this.groupBox4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox4.Controls.Add(this.label19);
             this.groupBox4.Controls.Add(this.textBoxExportPath);
@@ -1423,6 +1449,76 @@
             this.radioButtonMode_GetHelpOnCommand.Text = "Get Help On Command";
             this.radioButtonMode_GetHelpOnCommand.UseVisualStyleBackColor = true;
             // 
+            // txtWitXml
+            // 
+            this.txtWitXml.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtWitXml.Location = new System.Drawing.Point(326, 33);
+            this.txtWitXml.Name = "txtWitXml";
+            this.txtWitXml.Size = new System.Drawing.Size(404, 342);
+            this.txtWitXml.TabIndex = 20;
+            this.txtWitXml.Text = "";
+            // 
+            // txtCategoryXml
+            // 
+            this.txtCategoryXml.Location = new System.Drawing.Point(9, 28);
+            this.txtCategoryXml.Name = "txtCategoryXml";
+            this.txtCategoryXml.Size = new System.Drawing.Size(721, 347);
+            this.txtCategoryXml.TabIndex = 21;
+            this.txtCategoryXml.Text = "";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(6, 12);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(32, 13);
+            this.label3.TabIndex = 25;
+            this.label3.Text = "XML:";
+            // 
+            // txtProcessConfigXml
+            // 
+            this.txtProcessConfigXml.Location = new System.Drawing.Point(9, 28);
+            this.txtProcessConfigXml.Name = "txtProcessConfigXml";
+            this.txtProcessConfigXml.Size = new System.Drawing.Size(709, 347);
+            this.txtProcessConfigXml.TabIndex = 26;
+            this.txtProcessConfigXml.Text = "";
+            // 
+            // txtGLXml
+            // 
+            this.txtGLXml.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtGLXml.Location = new System.Drawing.Point(295, 22);
+            this.txtGLXml.Name = "txtGLXml";
+            this.txtGLXml.Size = new System.Drawing.Size(625, 345);
+            this.txtGLXml.TabIndex = 22;
+            this.txtGLXml.Text = "";
+            // 
+            // txtLinkXml
+            // 
+            this.txtLinkXml.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtLinkXml.Location = new System.Drawing.Point(8, 304);
+            this.txtLinkXml.Name = "txtLinkXml";
+            this.txtLinkXml.Size = new System.Drawing.Size(792, 95);
+            this.txtLinkXml.TabIndex = 21;
+            this.txtLinkXml.Text = "";
+            // 
+            // expandAllToolStripMenuItem
+            // 
+            this.expandAllToolStripMenuItem.Name = "expandAllToolStripMenuItem";
+            this.expandAllToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.expandAllToolStripMenuItem.Text = "Expand All";
+            this.expandAllToolStripMenuItem.Click += new System.EventHandler(this.expandAllToolStripMenuItem_Click);
+            // 
+            // collapseAllToolStripMenuItem
+            // 
+            this.collapseAllToolStripMenuItem.Name = "collapseAllToolStripMenuItem";
+            this.collapseAllToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.collapseAllToolStripMenuItem.Text = "Collapse All";
+            this.collapseAllToolStripMenuItem.Click += new System.EventHandler(this.collapseAllToolStripMenuItem_Click);
+            // 
             // WitAdminToolForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1436,7 +1532,6 @@
             this.Controls.Add(this.btnConnect);
             this.Controls.Add(this.lblCollection);
             this.ForeColor = System.Drawing.SystemColors.ControlText;
-            //this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "WitAdminToolForm";
             this.Text = "WitAdminUI";
             this.contextMenuStrip1.ResumeLayout(false);
@@ -1460,6 +1555,7 @@
             this.tabControl_CollectionLevelActions.ResumeLayout(false);
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.gvFields)).EndInit();
             this.tabPage4.ResumeLayout(false);
             this.tabPage4.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gvLink)).EndInit();
@@ -1499,7 +1595,6 @@
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.Button btnExportImport_OpenFIle;
         private System.Windows.Forms.TextBox textBoxImportFilePath;
-        private System.Windows.Forms.TextBox txtWitXml;
         private System.Windows.Forms.TextBox txtNewWitName;
         private System.Windows.Forms.Button btnWit_ImportFromFile;
         private System.Windows.Forms.Button btnWit_ValidateFile;
@@ -1529,7 +1624,6 @@
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.TabPage tabPageCategories;
-        private System.Windows.Forms.TextBox txtCateXml;
         private System.Windows.Forms.Button btnCategories_ImportFromXml;
         private System.Windows.Forms.Button btnCategories_Export;
         private System.Windows.Forms.TabPage tabPageCollectionLevelActions;
@@ -1548,10 +1642,7 @@
         private System.Windows.Forms.TextBox txtFdType;
         private System.Windows.Forms.TextBox txtFdName;
         private System.Windows.Forms.TextBox txtFdRefName;
-        private System.Windows.Forms.ListBox listFields;
-        private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TabPage tabPage4;
-        private System.Windows.Forms.TextBox txtLinkXml;
         private System.Windows.Forms.Button btnLinks_Reactivate;
         private System.Windows.Forms.Button btnLinks_Deactivate;
         private System.Windows.Forms.Button btnLinks_ImportFromXml;
@@ -1564,7 +1655,6 @@
         private System.Windows.Forms.Button btnGL_ImportFromList;
         private System.Windows.Forms.Button btnGL_Import;
         private System.Windows.Forms.Button btnGL_Export;
-        private System.Windows.Forms.TextBox txtGLXml;
         private System.Windows.Forms.TreeView treeViewGlobalLists;
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
         private System.Windows.Forms.Label label19;
@@ -1584,12 +1674,24 @@
         private System.Windows.Forms.Button btnLinks_ImportFromFile;
         private System.Windows.Forms.Button btnGL_ImportFormFile;
         private System.Windows.Forms.TabPage tabPageProcessConfig;
-        private System.Windows.Forms.TextBox txtProcessConfigXml;
+        private System.Windows.Forms.Button btnFdSearchString;
         private System.Windows.Forms.Label label23;
         private System.Windows.Forms.Button btnProcessConfig_ImportFromFile;
         private System.Windows.Forms.Button btnProcessConfig_ImportFromXML;
         private System.Windows.Forms.Button btnProcessConfig_Export;
 
+        private System.Windows.Forms.TextBox txtFdSearchString;
+        private System.Windows.Forms.Label label24;
+        private System.Windows.Forms.TextBox txtFdSearchStringFoundCount;
+        private System.Windows.Forms.DataGridView gvFields;
+        private System.Windows.Forms.RichTextBox txtWitXml;
+        private System.Windows.Forms.RichTextBox txtCategoryXml;
+        private System.Windows.Forms.RichTextBox txtProcessConfigXml;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.RichTextBox txtGLXml;
+        private System.Windows.Forms.RichTextBox txtLinkXml;
+        private System.Windows.Forms.ToolStripMenuItem expandAllToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem collapseAllToolStripMenuItem;
     }
 }
 
