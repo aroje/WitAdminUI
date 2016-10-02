@@ -1,43 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
-using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-//using Microsoft.TeamFoundation.Client;
-using System.Security;
 using System.Diagnostics;
-//using Microsoft.TeamFoundation.WorkItemTracking.Client;
 using System.IO;
 using System.Xml;
-using System.Drawing.Drawing2D;
 using Microsoft.TeamFoundation.Client;
 using Microsoft.TeamFoundation.WorkItemTracking.Client;
 
 namespace WitAdminTool
 {
-    public class Helpers
-    { 
-        public static TfsTeamProjectCollection ConnectToTeamProject()
-        {
-            try
-            {
-                TeamProjectPicker tpp = new TeamProjectPicker();
-                if (tpp.ShowDialog() == DialogResult.OK)
-                {
-                    return tpp.SelectedTeamProjectCollection;
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-            return null;
-        }
-    }
-
     public partial class WitAdminToolForm : Form
     {
         TfsTeamProjectCollection tfsTPC;
@@ -54,7 +28,7 @@ namespace WitAdminTool
              }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBoxError(ex.Message);
             }
         }
 
@@ -63,7 +37,6 @@ namespace WitAdminTool
         {
             workitemStore = (WorkItemStore)tfsTPC.GetService(typeof(WorkItemStore));
             this.lblCollection.Text = tfsTPC.Uri.AbsoluteUri;
-            this.tabControl_ProjectLevelActions.SelectedIndex = 0;
 
             InitProjects();
             InitWorkItemTypePage();
@@ -73,12 +46,15 @@ namespace WitAdminTool
             InitGloballistPage();
 
             textBoxExportPath.Text = Path.GetTempPath();
+
+            tabControl_ProjectLevelActions.SelectedIndex = 0;
         }
 
         private void InitCommand()
         {
             textBoxResult.Text = string.Empty;
             textBoxCommand.Text = string.Empty;
+            textBoxImportFilePath.Text = string.Empty;
         }
 
         private void btnConnect_Click(object sender, EventArgs e)
@@ -93,7 +69,7 @@ namespace WitAdminTool
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBoxError(ex.Message);
             }
 
             InitForm();
@@ -156,10 +132,13 @@ namespace WitAdminTool
         }
         private void InitWorkItemTypePage()
         {
+            InitWorkItemList();
+            InitCommand();
+        }
+        private void InitWorkItemList(bool clearXMLfield=true)
+        {
             workitemStore.SyncToCache();
             listWit.Items.Clear();
-            txtWitXml.Text = string.Empty;
-            
             if (listProject.SelectedItem == null)
             {
                 return;
@@ -169,22 +148,38 @@ namespace WitAdminTool
             {
                 listWit.Items.Add(wit.Name);
             }
+            if (clearXMLfield)
+                txtWitXml.Text = string.Empty;
         }
+
         private void InitWorkItemPage()
         {
             this.txtWiID.Text = string.Empty;
             
         }
+        DataTable dtFields = null;
+
         private void InitFieldPage()
         {
             this.workitemStore.SyncToCache();
-            this.listFields.Items.Clear();
+
+            dtFields = new DataTable();
+            dtFields.Columns.Add("Reference Name");
+            dtFields.Columns.Add("Name");
+            dtFields.Columns.Add("Type");
+            dtFields.Columns.Add("Report Type");
+            dtFields.Columns.Add("Indexed");
+
             foreach (FieldDefinition fd in this.workitemStore.FieldDefinitions)
             {
-                this.listFields.Items.Add(fd.Name + "/" + fd.ReferenceName);
+                dtFields.Rows.Add(fd.ReferenceName, fd.Name, fd.FieldType.ToString(),
+                    fd.ReportingAttributes.Type.ToString().ToLower(), fd.IsIndexed.ToString());
             }
-            listFields.SelectedIndex = 0;
+
+            this.gvFields.DataSource = dtFields;
+            this.gvFields.Sort(gvFields.Columns["Reference Name"], ListSortDirection.Ascending);
         }
+
         private void InitLinkTypePage()
         {
             this.workitemStore.SyncToCache();
@@ -210,10 +205,10 @@ namespace WitAdminTool
                 dtLik.Rows.Add(refName, fn, rn, topology, actYN);
             }
 
-            this.gvLink.DataSource = dtLik;
-            this.gvLink.Rows[0].Selected = true;
+            gvLink.DataSource = dtLik;
+            gvLink.Rows[0].Selected = true;
 
-            this.txtLinkXml.Text = string.Empty;
+            txtLinkXml.Text = string.Empty;
         }
 
         private void InitGloballistPage()
@@ -259,6 +254,11 @@ namespace WitAdminTool
         {
             InitWorkItemTypePage();
         }
+        private void listWit_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            InitCommand();
+            txtWitXml.Text = string.Empty;
+        }
 
         private void btnWit_Rename_Click(object sender, EventArgs e)
         {
@@ -270,19 +270,22 @@ namespace WitAdminTool
 
             if (listWit.SelectedItem == null)
             {
-                MessageBox.Show("Select Work Item Type");
+                MessageBoxWarning("Select Work Item Type");
                 return;
             }
             if (this.txtNewWitName.Text == string.Empty)
             {
-                MessageBox.Show("Input New Work Item Type Name");
+                MessageBoxWarning("Input New Work Item Type Name");
                 return;
             }
 
             string command = GenerateComand(WitadminActions.RENAMEWITD, this.listWit.SelectedItem.ToString(), this.txtNewWitName.Text);
 
-            if (ExcuteCommand("Really Rename Work Item Type?", command))
-                this.InitWorkItemTypePage();
+            if (ExcuteCommand(
+                string.Format("Do you really want to RENAME the work item type '{0}' in project '{1}'?", 
+                                listWit.SelectedItem.ToString(), listProject.SelectedItem.ToString()), 
+                command))
+                InitWorkItemList();
         }
 
         private void btnWit_Delete_Click(object sender, EventArgs e)
@@ -295,14 +298,17 @@ namespace WitAdminTool
 
             if (listWit.SelectedItem == null)
             {
-                MessageBox.Show("Select Work Item Type");
+                MessageBoxWarning("Select Work Item Type");
                 return;
             }
 
             string command = GenerateComand(WitadminActions.DESTROYWITD, this.listWit.SelectedItem.ToString());
 
-            if (ExcuteCommand("Really Delete Work Item Type?", command))
-                this.InitWorkItemTypePage();
+            if (ExcuteCommand(
+                string.Format("Do you really want to DELETE the work item type '{0}' in project '{1}'?",
+                                listWit.SelectedItem.ToString(), listProject.SelectedItem.ToString()),
+                command))
+                InitWorkItemList();
         }
 
         private void btnWit_Export_Click(object sender, EventArgs e)
@@ -315,29 +321,30 @@ namespace WitAdminTool
 
             if (listWit.SelectedItem == null)
             {
-                MessageBox.Show("Select Work Item Type");
+                MessageBoxWarning("Select Work Item Type");
                 return;
             }
 
             if (textBoxExportPath.Text.Length == 0)
             {
-                MessageBox.Show("Select Export Path");
+                MessageBoxWarning("Select Export Path");
                 return;
             }
 
-            string witXmlFilePath = textBoxExportPath.Text + Path.DirectorySeparatorChar + this.listWit.SelectedItem.ToString().Replace(" ", string.Empty) + ".xml";
+            string witXmlFilePath = Path.Combine(textBoxExportPath.Text, 
+                this.listWit.SelectedItem.ToString().Replace(" ", string.Empty) + ".xml");
+
             string command = GenerateComand(WitadminActions.EXPORTWITD, this.listWit.SelectedItem.ToString(), witXmlFilePath);
-            ExcuteCommand(string.Empty, command);
-
-            this.txtWitXml.Text = ReadFileToXmlControl(witXmlFilePath);
-
+            txtWitXml.Text = string.Empty;
+            if (ExcuteCommand(string.Empty, command))
+                txtWitXml.Text = ReadFileToXmlControl(witXmlFilePath);
         }
 
         private void btnWit_ImportFromXml_Click(object sender, EventArgs e)
         {
             if (ImportFromXMLHelper(WitadminActions.IMPORTWITD, "Work Item Type", txtWitXml.Text))
             {
-                this.InitWorkItemTypePage();
+                InitWorkItemList(false);
             }
         }
 
@@ -345,7 +352,7 @@ namespace WitAdminTool
         {
             if (ImportFromFileHelper(WitadminActions.IMPORTWITD, "Work Item Type"))
             {
-                this.InitWorkItemTypePage();
+                InitWorkItemList();
             }
         }
                 
@@ -359,7 +366,7 @@ namespace WitAdminTool
 
             if (textBoxImportFilePath.Text.Length == 0)
             {
-                MessageBox.Show("File Name empty", "Caution", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBoxWarning("File Name empty");
                 return;
             }
 
@@ -384,7 +391,7 @@ namespace WitAdminTool
             {
                 if (listProject.SelectedItem == null )
                 {
-                    MessageBox.Show("Select Project");
+                    MessageBoxWarning("Select Project");
                     return;
                 }
                 query = string.Format("{0} WHERE [System.TeamProject] = '{1}'", query, listProject.SelectedItem.ToString());
@@ -439,7 +446,7 @@ namespace WitAdminTool
         {
             if (textBoxWICount.Text == null)
             {
-                MessageBox.Show("Input Number of Work Item to select");
+                MessageBoxWarning("Input Number of Work Item to select");
                 textBoxWICount.Focus();
                 return;
             }
@@ -457,13 +464,16 @@ namespace WitAdminTool
 
             if (this.txtWiID.Text == string.Empty)
             {
-                MessageBox.Show("Input Work Item ID(s)");
+                MessageBoxWarning("Input Work Item ID(s)");
                 txtWiID.Focus();
                 return;
             }
 
             string command = GenerateComand(WitadminActions.DESTROYWI, this.txtWiID.Text);
-            if (ExcuteCommand("Really Delete Work Item(s)?", command))
+            if (ExcuteCommand(
+                string.Format("Do you really want to DELETE selected work item(s) in project '{0}'?",
+                                listProject.SelectedItem.ToString()),
+                command))
                 this.GetWi();
         }
 
@@ -501,47 +511,67 @@ namespace WitAdminTool
 
             if (ids == string.Empty)
             {
-                MessageBox.Show("Check Work Item(s)");
+                MessageBoxWarning("Check Work Item(s)");
                 return;
             }
 
             string command = GenerateComand(WitadminActions.DESTROYWI, ids);
-            if (ExcuteCommand("Really Delete Work Item(s)?", command))
-               this.GetWi();
+            if (ExcuteCommand(
+                string.Format("Do you really want to DELETE selected work item(s) in project '{0}'?",
+                                listProject.SelectedItem.ToString()),
+                command))
+                this.GetWi();
         }
         #endregion
 
         #region Fields
-        private void listFields_SelectedIndexChanged(object sender, EventArgs e)
+
+        private void btnFdSearchString_Click(object sender, EventArgs e)
         {
+            // Set the search string:
+            string filterString = txtFdSearchString.Text;
+
+            DataView dvFiltered;
+            string filter = string.Format("[Reference Name] LIKE '*{0}*' OR [Name] LIKE '*{0}*' ", filterString);
+            dvFiltered = new DataView(dtFields, filter, "type Desc", DataViewRowState.CurrentRows);
+            gvFields.DataSource = dvFiltered;
+            txtFdSearchStringFoundCount.Text = dvFiltered.Count.ToString();
+            gvFields.Sort(gvFields.Columns["Reference Name"], ListSortDirection.Ascending);
+        }
+
+        private void txtFdSearchString_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                btnFdSearchString_Click(this, new EventArgs());
+            }
+        }
+
+        private void gvFields_SelectionChanged(object sender, EventArgs e)
+        {
+
             this.txtFdName.Text = string.Empty;
             this.txtFdRefName.Text = string.Empty;
             this.txtFdType.Text = string.Empty;
 
-            string seletecItem = this.listFields.SelectedItem.ToString();
-            if (!string.IsNullOrEmpty(seletecItem))
-            {
-                string refName = seletecItem.Split('/')[1];
+            if (gvFields.SelectedRows.Count != 1)
+                return;
 
-                FieldDefinition fd = this.workitemStore.FieldDefinitions[refName];
-                if (fd != null)
-                {
-                    txtFdName.Text = fd.Name;
-                    txtFdRefName.Text = fd.ReferenceName;
-                    txtFdType.Text = fd.FieldType.ToString();
-                    this.cbbFdReportType.SelectedItem = fd.ReportingAttributes.Type.ToString().ToLower();
-                    if (fd.IsIndexed)
-                    {
-                        this.cbbIndexYN.SelectedItem = "Y";
-                        this.btnFields_Index.Text = "Index Off";
-                    }
-                    else
-                    {
-                        this.cbbIndexYN.SelectedItem = "N";
-                        this.btnFields_Index.Text = "Index On";
-                    }
-                }
+            txtFdName.Text = gvFields.SelectedRows[0].Cells["Name"].Value.ToString();
+            txtFdRefName.Text = gvFields.SelectedRows[0].Cells["Reference Name"].Value.ToString();
+            txtFdType.Text = gvFields.SelectedRows[0].Cells["Type"].Value.ToString();
+            cbbFdReportType.SelectedItem = gvFields.SelectedRows[0].Cells["Report Type"].Value.ToString().ToLower();
+            if (gvFields.SelectedRows[0].Cells["Indexed"].Value.ToString().Equals("True"))
+            {
+                cbbIndexYN.SelectedItem = "Y";
+                btnFields_Index.Text = "Index Off";
             }
+            else
+            {
+                this.cbbIndexYN.SelectedItem = "N";
+                this.btnFields_Index.Text = "Index On";
+            }
+
         }
 
         private void btnFields_Delete_Click(object sender, EventArgs e)
@@ -552,15 +582,18 @@ namespace WitAdminTool
                 return;
             }
 
-            if (this.listFields.SelectedItem == null)
+            if (this.gvFields.SelectedRows.Count == 0)
             {
-                MessageBox.Show("Select Field");
+                MessageBoxWarning("Select Field");
                 return;
             }
 
             string command = GenerateComand(WitadminActions.DELETEFIELD, txtFdRefName.Text);
-            if (ExcuteCommand("Really Delete Field?", command))
-                InitFieldPage();
+            if (ExcuteCommand(
+                string.Format("Do you really want to DELETE the field '{0}' from project collection?",
+                                txtFdName.Text),
+                command))
+                    InitFieldPage();
         }
 
         private void btnFields_Change_Click(object sender, EventArgs e)
@@ -571,9 +604,9 @@ namespace WitAdminTool
                 return;
             }
 
-            if (this.listFields.SelectedItem == null)
+            if (this.gvFields.SelectedRows.Count == 0)
             {
-                MessageBox.Show("Select Field");
+                MessageBoxWarning("Select Field");
                 return;
             }
 
@@ -588,7 +621,11 @@ namespace WitAdminTool
             }
 
 
-            if (ExcuteCommand("Really Change Field?", command))
+            if (ExcuteCommand(
+                string.Format("Do you really want to CHANGE the field '{0}' from project collection?",
+                                txtFdName.Text),
+                command))
+
                 InitFieldPage();
         }
         private void btnFields_Index_Click(object sender, EventArgs e)
@@ -607,7 +644,10 @@ namespace WitAdminTool
                   onOffSwitch = "of";
             
             string command = GenerateComand(WitadminActions.INDEXFIELD, txtFdRefName.Text, onOffSwitch);
-            if (ExcuteCommand("Really Index Field?", command))
+            if (ExcuteCommand(
+                string.Format("Do you really want to INDEX the field '{0}' from project collection?",
+                                txtFdName.Text),
+                command))
                 InitFieldPage();
         }
         #endregion
@@ -621,7 +661,7 @@ namespace WitAdminTool
                 || this.gvLink.SelectedRows[0].Cells[0].Value.ToString() == string.Empty
                 )
             {
-                MessageBox.Show("Select LinkType Row");
+                MessageBoxWarning("Select LinkType Row");
                 return false;
             }
             return true;
@@ -638,8 +678,12 @@ namespace WitAdminTool
             if (!IsLinkSelected())
                 return;
 
-            string command = GenerateComand(WitadminActions.DELETELINKTYPE, this.gvLink.SelectedRows[0].Cells[0].Value.ToString());
-            if (ExcuteCommand("Really Change LinkType?", command))
+            string linkType = this.gvLink.SelectedRows[0].Cells[0].Value.ToString();
+            string command = GenerateComand(WitadminActions.DELETELINKTYPE, linkType);
+            if (ExcuteCommand(
+                string.Format("Do you really want to DELETE the Link Type '{0}' in project collection?",
+                                linkType),
+                command))
                 this.InitLinkTypePage();
         }
 
@@ -656,17 +700,17 @@ namespace WitAdminTool
 
             if (textBoxExportPath.Text.Length == 0)
             {
-                MessageBox.Show("Select Export Path");
+                MessageBoxWarning("Select Export Path");
                 return;
             }
 
             string linkFullName = gvLink.SelectedRows[0].Cells[0].Value.ToString();
-            string linkTypeFilePath = textBoxExportPath.Text + Path.DirectorySeparatorChar + linkFullName.Replace(" ", string.Empty).Replace(".", string.Empty) + ".xml";
+            string linkTypeFilePath = Path.Combine(textBoxExportPath.Text, 
+                linkFullName.Replace(" ", string.Empty).Replace(".", string.Empty) + ".xml");
 
             string command = GenerateComand(WitadminActions.EXPORTLINKTYPE, linkFullName, linkTypeFilePath);
-            ExcuteCommand(string.Empty, command);
-
-            this.txtLinkXml.Text = ReadFileToXmlControl(linkTypeFilePath);
+            if (ExcuteCommand(string.Empty, command))
+                txtLinkXml.Text = ReadFileToXmlControl(linkTypeFilePath);
         }
 
         private void btnLinks_ImportFromXml_Click(object sender, EventArgs e)
@@ -696,8 +740,13 @@ namespace WitAdminTool
             if (!IsLinkSelected())
                 return;
 
-            string command = GenerateComand(WitadminActions.DEACTIVATELINKTYPE, this.gvLink.SelectedRows[0].Cells[0].Value.ToString());
-            if (ExcuteCommand("Really Deactivate LinkType?", command))
+            string linkType = this.gvLink.SelectedRows[0].Cells[0].Value.ToString();
+            string command = GenerateComand(WitadminActions.DEACTIVATELINKTYPE,linkType );
+            if (ExcuteCommand(
+                string.Format("Do you really want to DEACTIVATE the Link Type '{0}' in project collection?",
+                                linkType),
+                command))
+
                 InitLinkTypePage();
         }
 
@@ -712,8 +761,12 @@ namespace WitAdminTool
             if (!IsLinkSelected())
                 return;
 
-            string command = GenerateComand(WitadminActions.REACTIVATELINKTYPE, this.gvLink.SelectedRows[0].Cells[0].Value.ToString());
-            if (ExcuteCommand("Really Reactivate LinkType?", command))
+            string linkType = this.gvLink.SelectedRows[0].Cells[0].Value.ToString();
+            string command = GenerateComand(WitadminActions.REACTIVATELINKTYPE, linkType);
+            if (ExcuteCommand(
+                string.Format("Do you really want to REACTIVATE the Link Type '{0}' in project collection?",
+                                linkType),
+                command))
                 this.InitLinkTypePage();
         }
         #endregion
@@ -730,7 +783,7 @@ namespace WitAdminTool
                     if (mySelectedNode.Parent == treeViewGlobalLists.Nodes[0] && mySelectedNode.Tag == (object)"Server")
                     {
                         e.CancelEdit = true;
-                        MessageBox.Show("Cannot rename lists that have been saved to the server.");
+                        MessageBoxError("Cannot rename lists that have been saved to the server.");
                     }
                     else if (e.Label.IndexOfAny(new char[] { '@', ',', '!', '\\' }) == -1)
                     {
@@ -742,7 +795,7 @@ namespace WitAdminTool
                         /* Cancel the label edit action, inform the user, and 
                            place the node in edit mode again. */
                         e.CancelEdit = true;
-                        MessageBox.Show("Invalid tree node label.\n" +
+                        MessageBoxError("Invalid tree node label.\n" +
                            "The invalid characters are: '@', ',', '!', '\'",
                            "Node Label Edit");
                         e.Node.BeginEdit();
@@ -753,7 +806,7 @@ namespace WitAdminTool
                     /* Cancel the label edit action, inform the user, and 
                        place the node in edit mode again. */
                     e.CancelEdit = true;
-                    MessageBox.Show("Invalid tree node label.\nThe label cannot be blank",
+                    MessageBoxError("Invalid tree node label.\nThe label cannot be blank",
                        "Node Label Edit");
                     e.Node.Parent.Expand();
                     e.Node.Expand();
@@ -786,7 +839,7 @@ namespace WitAdminTool
             }
             else
             {
-                MessageBox.Show("Select a target list");
+                MessageBoxWarning("Select a target list");
                 return;
             }
 
@@ -818,12 +871,12 @@ namespace WitAdminTool
             {
                 if (mySelectedNode.Level == 1)
                 {
-                    MessageBox.Show("Cannon delete Root Node, Use the Delete Button");
+                    MessageBoxError("Cannon delete Root Node, Use the Delete Button");
                     return;
                 }
                 if (mySelectedNode.Parent == treeViewGlobalLists.Nodes[0] && mySelectedNode.Tag == (object)"server")
                 {
-                    MessageBox.Show("Cannot delete lists that have been saved to the server");
+                    MessageBoxError("Cannot delete lists that have been saved to the server");
                 }
                 else
                 {
@@ -832,7 +885,7 @@ namespace WitAdminTool
             }
             else
             {
-                MessageBox.Show("Cannot delete the root node");
+                MessageBoxError("Cannot delete the root node");
             }
         }
         private void addToolStripMenuItem_Click(object sender, EventArgs e)
@@ -853,10 +906,23 @@ namespace WitAdminTool
             }
             else
             {
-                MessageBox.Show("No tree node selected or selected node is a root node\n" +
+                MessageBoxError("No tree node selected or selected node is a root node\n" +
                    "Editing of root nodes is not allowed", "Invalid selection");
             }
         }
+
+        private void expandAllToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            treeViewGlobalLists.ExpandAll();
+            treeViewGlobalLists.SelectedNode = treeViewGlobalLists.Nodes[0];
+        }
+
+        private void collapseAllToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            treeViewGlobalLists.CollapseAll();
+            treeViewGlobalLists.Nodes[0].Expand();
+        }
+
         private XmlDocument CreateXMLDocFromTree()
         {
 
@@ -928,7 +994,7 @@ namespace WitAdminTool
 
             this.InitGloballistPage();
 
-            this.txtGLXml.Text = output.ToString();
+            txtGLXml.Text = output.ToString();
         }
 
         private void btnGLExport_Click(object sender, EventArgs e)
@@ -941,17 +1007,16 @@ namespace WitAdminTool
 
             if (textBoxExportPath.Text.Length == 0)
             {
-                MessageBox.Show("Select Export Path");
+                MessageBoxWarning("Select Export Path");
                 return;
             }
 
-            string globlListFilePath = textBoxExportPath.Text + Path.DirectorySeparatorChar + 
-                workitemStore.TeamProjectCollection.Name.Replace("\\", "_") + ".xml";
+            string globlListFilePath = Path.Combine(textBoxExportPath.Text,
+                workitemStore.TeamProjectCollection.Name.Replace("\\", "_") + ".xml");
 
             string command = GenerateComand(WitadminActions.EXPORTGLOBALLIST, globlListFilePath);
-            ExcuteCommand(string.Empty, command);
-
-            this.txtGLXml.Text = ReadFileToXmlControl(globlListFilePath);
+            if(ExcuteCommand(string.Empty, command))
+                txtGLXml.Text = ReadFileToXmlControl(globlListFilePath);
         }
         private void btnGLImportFromXml_Click(object sender, EventArgs e)
         {
@@ -977,17 +1042,21 @@ namespace WitAdminTool
 
             if (this.treeViewGlobalLists.SelectedNode == null)
             {
-                MessageBox.Show("Select list's root node");
+                MessageBoxWarning("Select list's root node");
                 return;
             }
             if (this.treeViewGlobalLists.SelectedNode.Level != 1)
             {
-                MessageBox.Show("You can only can delete list's root node");
+                MessageBoxError("You can only can delete list's root node");
                 return;
             }
 
-            string command = GenerateComand(WitadminActions.DESTROYGLOBALLIST, this.treeViewGlobalLists.SelectedNode.Text);
-            if (ExcuteCommand("Really Destroy Global List?", command))
+            string globalList = this.treeViewGlobalLists.SelectedNode.Text;
+            string command = GenerateComand(WitadminActions.DESTROYGLOBALLIST, globalList);
+            if (ExcuteCommand(
+                string.Format("Do you really want to DESTROY the Global List '{0}' in project collection?",
+                globalList, listProject.SelectedItem.ToString()),
+                command))
                 this.InitGloballistPage();
         }
 
@@ -1004,21 +1073,20 @@ namespace WitAdminTool
 
             if (textBoxExportPath.Text.Length == 0)
             {
-                MessageBox.Show("Select Export Path");
+                MessageBoxWarning("Select Export Path");
                 return;
             }
 
             string project = listProject.SelectedItem.ToString();
-            string cateXmlFilePath = textBoxExportPath.Text + Path.DirectorySeparatorChar + project.Replace(" ", string.Empty) + ".xml";
+            string cateXmlFilePath = Path.Combine(textBoxExportPath.Text, project.Replace(" ", string.Empty) + ".xml");
             string command = GenerateComand(WitadminActions.EXPORTCATEGORIES, cateXmlFilePath);
-            ExcuteCommand(string.Empty, command);
-
-            this.txtCateXml.Text = ReadFileToXmlControl(cateXmlFilePath);
+            if(ExcuteCommand(string.Empty, command))
+                txtCategoryXml.Text = ReadFileToXmlControl(cateXmlFilePath);
         }
 
         private void btnCategoriesImportFromXml_Click(object sender, EventArgs e)
         {
-            ImportFromXMLHelper(WitadminActions.IMPORTCATEGORIES, "Categories", txtCateXml.Text);
+            ImportFromXMLHelper(WitadminActions.IMPORTCATEGORIES, "Categories", txtCategoryXml.Text);
         }
 
         private void btnCategories_ImportFromFile_Click(object sender, EventArgs e)
@@ -1026,7 +1094,7 @@ namespace WitAdminTool
             ImportFromFileHelper(WitadminActions.IMPORTCATEGORIES, "Categories");
         }
 
-        #endregion
+        #endregion       
 
         #region Process Configuration
 
@@ -1040,16 +1108,15 @@ namespace WitAdminTool
 
             if (textBoxExportPath.Text.Length == 0)
             {
-                MessageBox.Show("Select Export Path");
+                MessageBoxWarning("Select Export Path");
                 return;
             }
 
-            string project = listProject.SelectedItem.ToString();
-            string xmlFilePath = textBoxExportPath.Text + Path.DirectorySeparatorChar + project.Replace(" ", string.Empty) + ".xml";
+            string projectFileName = listProject.SelectedItem.ToString().Replace(" ", string.Empty) + ".xml";
+            string xmlFilePath = Path.Combine(textBoxExportPath.Text, projectFileName);
             string command = GenerateComand(WitadminActions.EXPORTPROCESSCONFIG, xmlFilePath);
-            ExcuteCommand(string.Empty, command);
-
-            txtProcessConfigXml.Text = ReadFileToXmlControl(xmlFilePath);
+            if (ExcuteCommand(string.Empty, command))
+                txtProcessConfigXml.Text = ReadFileToXmlControl(xmlFilePath);
         }
 
         private void btnProcessConfig_ImportFromXml_Click(object sender, EventArgs e)
@@ -1134,7 +1201,8 @@ namespace WitAdminTool
 
         private string GenerateComand(WitadminActions action, params object[] args)
         {
-            InitCommand();
+            textBoxResult.Text = string.Empty;
+            textBoxCommand.Text = string.Empty;
             string command = string.Empty;
 
             switch (action)
@@ -1151,7 +1219,7 @@ namespace WitAdminTool
                 case WitadminActions.IMPORTPROCESSCONFIG:
                     if (this.listProject.SelectedItem == null)
                     {
-                        MessageBox.Show("Project not selected", "Caution", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        MessageBoxWarning("Project not selected");
                         return string.Empty;
                     }
                     break;
@@ -1293,18 +1361,20 @@ namespace WitAdminTool
 
                 string Result = ProcessObj.StandardOutput.ReadToEnd();
                 string Error = ProcessObj.StandardError.ReadToEnd();
+                bool success = true;
 
                 string resultMsg = "Output:" + Environment.NewLine + Result;
                 if (Error.Length > 0)
                 {
                     resultMsg = resultMsg + Environment.NewLine + "Error:" + Environment.NewLine + Error;
+                    success = false;
                 }
                 textBoxResult.Text = resultMsg;
-                return true;
+                return success;
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBoxError(ex.Message);
                 return false;
             }
         }
@@ -1386,12 +1456,25 @@ namespace WitAdminTool
 
             if (textBoxImportFilePath.Text.Length == 0)
             {
-                MessageBox.Show("File Name empty", "Caution", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBoxWarning("File Name empty");
                 return false;
             }
 
             string command = GenerateComand(action, textBoxImportFilePath.Text);
-            return ExcuteCommand(string.Format("Really Import {0}?", importItem), command);
+            string message = string.Empty;
+            switch (action)
+            {
+                case WitadminActions.IMPORTWITD:
+                case WitadminActions.IMPORTCATEGORIES:
+                    message = string.Format("Do you really want to IMPORT the {0} to project '{1}' from file '{2}'?",
+                    importItem, listProject.SelectedItem.ToString(), textBoxImportFilePath.Text);
+                    break;
+                default:
+                    message = string.Format("Do you really want to IMPORT the {0} from file '{1}'?",
+                    importItem, textBoxImportFilePath.Text);
+                    break;
+            }
+            return ExcuteCommand(message, command);
         }
 
         private bool ImportFromXMLHelper(WitadminActions action, string importItem, string xmlText)
@@ -1407,13 +1490,26 @@ namespace WitAdminTool
                 return false;
 
             string command = GenerateComand(action, witXmlFilePath);
-            return ExcuteCommand(string.Format("Really Import {0}?", importItem), command);
+            string message = string.Empty;
+            switch (action)
+            {
+                case WitadminActions.IMPORTWITD:
+                case WitadminActions.IMPORTCATEGORIES:
+                    message = string.Format("Do you really want to IMPORT the {0} to project '{1}' from XML'?",
+                    importItem, listProject.SelectedItem.ToString());
+                    break;
+                default:
+                    message = string.Format("Do you really want to IMPORT the {0} from XML?",
+                    importItem);
+                    break;
+            }
+            return ExcuteCommand(message,command);
         }
         private string SaveXMLToFile(string xmlText)
         {
             if (xmlText.Length == 0)
             {
-                MessageBox.Show("XML is empty");
+                MessageBoxError("XML is empty");
                 return string.Empty;
             }
 
@@ -1424,7 +1520,7 @@ namespace WitAdminTool
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Error reading XML", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBoxError(ex.Message, "Error reading XML");
                 return string.Empty;
             }
 
@@ -1433,10 +1529,20 @@ namespace WitAdminTool
             doc.Save(filePath);
             return filePath;
         }
+
+        void MessageBoxWarning(string message)
+        {
+            MessageBox.Show(message, "Caution", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+        }
+
+        void MessageBoxError(string message, string caption=null)
+        {
+            if (caption == null)
+                caption = "Error";
+            MessageBox.Show(message, caption, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+        }
+
         #endregion
-
-
-
     }
 }
 

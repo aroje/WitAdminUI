@@ -1,7 +1,5 @@
 ﻿using Microsoft.TeamFoundation.Client;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Windows.Forms;
 
 namespace WitAdminTool
@@ -19,6 +17,26 @@ namespace WitAdminTool
             TfsTeamProjectCollection tfsTPC = WitAdminTool.Helpers.ConnectToTeamProject();
             if (tfsTPC != null)
                 Application.Run(new WitAdminToolForm(tfsTPC));
+        }
+    }
+
+    public class Helpers
+    {
+        public static TfsTeamProjectCollection ConnectToTeamProject()
+        {
+            try
+            {
+                TeamProjectPicker tpp = new TeamProjectPicker();
+                if (tpp.ShowDialog() == DialogResult.OK)
+                {
+                    return tpp.SelectedTeamProjectCollection;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+            return null;
         }
     }
 }
