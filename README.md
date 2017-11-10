@@ -13,7 +13,7 @@ When working on customizing a process template, you need to perform several **_w
 
 **TFS WitAdminUI** currently supports VSTS in the following way:
 
-"_With witadmin, you can modify XML definition files to support the On-premises XML process model. For Hosted XML and Inheritance process models, you can only use witadmin commands to list information._" [MSDN](https://msdn.microsoft.com/en-us/library/dd236914.aspx)
+"For Hosted XML and Inheritance process models, you can only use witadmin commands to list information._" [MSDN](https://msdn.microsoft.com/en-us/library/dd236914.aspx)
 
 ### Documentation
 
