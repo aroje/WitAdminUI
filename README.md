@@ -17,4 +17,4 @@ When working on customizing a process template, you need to perform several **_w
 
 ### Documentation
 
-Documentation is available at [https://aroje.github.io/](https://aroje.github.io/).
+Documentation is available at [https://aroje.github.io/](https://aroje.github.io/WitAdminUI/).
