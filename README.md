@@ -4,12 +4,16 @@
 
 When working on customizing a process template, you need to perform several **_witadmin_** actions multiple times, and since it is a command line tool, it gets pretty bothersome composing the long commands over and over again with poor support for copy-paste actions. **TFS WitAdminUI** helps you by automatically generating commands based on the project collection and team project you are connected to. It allows you to preview generated commands with parameters for several **_witadmin_** actions, get help on those actions and execute them against the selected project collection and team project.
 
-### Supported TFS versions
+### Supported Versions
 
 **TFS WitAdminUI** currently supports TFS versions:
 - 2017 and all updates
 - 2015
 - 2013
+
+**TFS WitAdminUI** currently supports VSTS in the following way:
+
+"_With witadmin, you can modify XML definition files to support the On-premises XML process model. For Hosted XML and Inheritance process models, you can only use witadmin commands to list information._" [MSDN](https://msdn.microsoft.com/en-us/library/dd236914.aspx)
 
 ### Documentation
 
