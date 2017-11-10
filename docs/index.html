@@ -1,0 +1,323 @@
+<body style='font-family:"arial"'>
+	<div class="wikidoc">
+	<p>
+		<a href="https://github.com/aroje/WitAdminUI">
+			<strong>TFS WitAdminUI</strong>
+		</a> is a simple wrapper around the	<strong><em>witadmin</em></strong> command-line tool offering various features.
+	</p>
+
+	<p>
+		<a href="images/Documentation_1 witadminui2013.png" target="_blank">
+			<img title="1 witadminui2013" src="images/Documentation_1 witadminui2013_thumb.png" alt="1 witadminui2013" width="586" height="484" border="0">
+		</a>
+	</p>
+
+	<p>
+		<a href="https://msdn.microsoft.com/en-us/library/dd236914.aspx?f=255&MSPPError=-2147217396">Witadmin</a> is a command-line tool which comes with Visual Studio. As described in
+		<a href="https://msdn.microsoft.com/en-us/library/dd236914.aspx?f=255&MSPPError=-2147217396">MSDN</a>, &ldquo;<em>By using the </em><strong><em>witadmin</em></strong>
+		<em>command-line tool, you can create, delete, import, and export objects such as categories, global lists, global workflow, types of links, and types of work items. You can also permanently
+			delete types of work item types, and you can delete, list, or change the attributes of fields in work item. As the following illustration shows, you manage categories and types of and work items for each team project. You manage global lists, types of links,
+			and fields in work item for each team project collection. You can customize global workflow for a team project or a collection.&rdquo;
+		</em>
+	</p>
+	<p>&nbsp;</p>
+
+	<p>
+		<a href="images/Documentation_2-witadmin msdn.png" target="_blank">
+			<img title="2-witadmin msdn" src="images/Documentation_2-witadmin msdn_thumb.png" alt="2-witadmin msdn" width="640" height="153" border="0">
+		</a>
+	</p>
+
+	<p>When working on customizing a process template, you need to perform several <strong><em>witadmin</em></strong> actions multiple times, and since it is a command line tool, it gets pretty bothersome composing the long commands over and over again with poor support for copy-paste actions.
+		<a href="https://github.com/aroje/WitAdminUI">
+			<strong>TFS WitAdminUI</strong>
+		</a> helps you by automatically generating commands based on the project collection and team project you are connected to. It allows you to preview generated commands with parameters for several <strong><em>witadmin </em></strong>actions, get help on those actions and execute them against the selected project collection and team project.
+	</p>
+
+	<p>
+		<em>Note: The application uses <strong>witadmin</strong> tool from Visual Studio 2013. It was not tested against earlier versions of Team Foundation Server, but it should work due to backward compatibility of the <strong>witadmin</strong> tool.</em>
+	</p>
+
+	<p>
+		<em>Note: The original code was taken from the CodePlex project </em>
+		<a href="http://witadminui.codeplex.com/">
+			<em>TFS WitAdminUI</em>
+		</a>
+		<em>, and it was refactored and extended.</em>
+	</p>
+
+	<h2>Connecting to TFS</h2>
+	<p>
+		<strong>TFS WitAdminUI 2013 </strong>lets you <strong>connect</strong> to a Team Foundation Server 2013 of your choice at load time. You can later change this connection while the program is running by using the
+		<strong>Connect</strong> button. All commands are executed in the context of the selected TFS connection.
+	</p>
+
+	<h3>Command Modes</h3>
+	<p>There are 3 different <strong>Command Modes</strong>:</p>
+	<p>
+		<strong>Generate Command Only</strong>
+	</p>
+
+	<p>Generates the <strong>
+		<em>witadmin</em>
+	</strong> command-line with appropriate parameters and shows it in the
+	<strong>Command</strong> edit box in the <strong>Execution</strong> group at the bottom of the window.</p>
+	<p>
+		<strong>This mode does not execute any commands against TFS!</strong>
+	</p>
+
+	<p>
+	<a href="images/Documentation_3 witadminui2013 - Generate Command Only_2.png" target="_blank">
+		<strong>
+			<img title="3 witadminui2013 - Generate Command Only" src="images/Documentation_3 witadminui2013 - Generate Command Only_thumb.png" alt="3 witadminui2013 - Generate Command Only" width="586" height="484" border="0">
+			</strong>
+		</a>
+	</p>
+	<p>&nbsp;</p>
+	<p>
+		<strong>Execute Command</strong>
+	</p>
+
+	<p>Generates the <strong><em>witadmin</em></strong> command-line with appropriate parameters and
+		<strong>executes</strong> it against the selected project collection and team project.
+	</p>
+
+	<p>The command is generated using the same code as in the <strong>Generate Command Only</strong>mode.</p>
+
+	<p>The result is displayed in the <strong>Result </strong>edit box in the <strong>Execution</strong> group at the bottom of the window.</p>
+
+	<p>
+		<a href="images/Documentation_4 witadminui2013 - Execute Command_4.png" target="_blank">
+			<img title="4 witadminui2013 - Execute Command" src="images/Documentation_4 witadminui2013 - Execute Command_thumb_1.png" alt="4 witadminui2013 - Execute Command" width="523" height="484" border="0">
+		</a>
+	</p>
+
+	<p>
+		<strong>Get Help On Command </strong>
+	</p>
+
+	<p>&nbsp;Runs the command-line to get help on a particular action implemented in the application. (<em>witadmin [action] /?</em>).</p>
+
+	<p>The result is displayed in the <strong>Result </strong>edit box in the <strong>
+			Execution</strong> group at the bottom of the window.</p>
+	<p>
+		<a href="images/Documentation_5 witadminui2013 - Get Help On Command_7.png" target="_blank">
+			<img title="5 witadminui2013 - Get Help On Command" src="images/Documentation_5 witadminui2013 - Get Help On Command_thumb_2.png" alt="5 witadminui2013 - Get Help On Command" width="448" height="484" border="0">
+		</a>
+	</p>
+
+	<h2>Project Level Actions</h2>
+	<p>The tab <strong>
+			<u>Project Level Actions</u>
+		</strong> contains commands which are
+		<strong>executed against a team project</strong>. You need to select the appropriate team project in the
+		<strong>Projects</strong> list.</p>
+	<p>&nbsp;
+		<strong>
+			<u>Work Items Types </u>
+		</strong>
+		<u>tab</u>
+	</p>
+	<p>&nbsp;Implements actions related to <strong>handling work item types</strong>:</p>
+	<ul>
+		<li>
+			<strong>Delete</strong> &ndash; <em>destroywitd</em>
+		</li>
+		<li>
+			<strong>Rename</strong> &ndash; <em>renamewitd</em>
+		</li>
+		<li>
+			<strong>Export</strong>
+			<strong>to File </strong>&ndash; <em>exportwitd</em>
+		</li>
+		<li>
+			<strong>Validate</strong> - <em>importwitd /v</em>
+		</li>
+		<li>
+			<strong>Import from File </strong>- <em>importwitd</em>
+		</li>
+		<li>
+			<strong>Import</strong>
+			<strong>from XML</strong> - <em>importwitd</em>
+		</li>
+	</ul>
+	<p>All actions are executed against the work item type selected in the <strong>Work Item Type</strong> list.</p>
+	<p>
+		When exporting, the path set under <strong>Export Folder</strong> in the <strong>
+			Export/Import Files</strong> group is used. The file name is generated based on the work item type name. Additionally the exported file is loaded in the
+		<strong>XML</strong> edit box.
+	</p>
+	<p>When importing from file, the file from the <strong>Import File Path </strong>
+		in the <strong>Export/Import Files</strong> group is used.</p>
+	<p>When importing from XML, the XML from the <strong>XML</strong> edit box is used.</p>
+	<p>
+		<a href="images/Documentation_6 witadminui2013 - Project Level Actions - Work Items Types tab_4" target="_blank">
+			<img title="6 witadminui2013 - Project Level Actions - Work Items Types tab" src="images/Documentation_6 witadminui2013 - Project Level Actions - Work Items Types tab_thumb_1.png" alt="6 witadminui2013 - Project Level Actions - Work Items Types tab" width="586" height="484" border="0">
+		</a>
+	</p>
+	<p>
+		<strong>
+			<u>Destroy Work Item </u>
+		</strong>
+		<u>tab</u>
+	</p>
+	<p>Implements actions related to <strong>destroying work items</strong> (<em>destroywi</em>) from the selected collection and projects.</p>
+	<p>You can <strong>destroy work items by IDs</strong> you manually enter in the <strong>
+			Id(s)</strong> edit box in the <strong>Destroy WIs by ID</strong> group.
+	</p>
+	<p>You can <strong>destroy work items by selecting</strong> them from the list of work items in the
+		<strong>Destroy WIs by Selection</strong> group.
+	</p>
+	<p>Populate the list using the <strong>Get Work Item(s)</strong> button either from the selected team project (<strong>Only Selected Projects
+		</strong>radio) or from all team project in the collection (<strong>All Projects</strong> radio). Use the
+		<strong>Select All WIs</strong>, <strong>Unselect All WIs</strong>, <strong>Select n WIs</strong> buttons to adjust your selection.
+	</p>
+	<p>&nbsp;
+		<a href="images/Documentation_7 witadminui2013 - Project Level Actions - Destroy Work Item tab_4.png" target="_blank">
+			<img title="7 witadminui2013 - Project Level Actions - Destroy Work Item tab" src="images/Documentation_7 witadminui2013 - Project Level Actions - Destroy Work Item tab_thumb_1.png" alt="7 witadminui2013 - Project Level Actions - Destroy Work Item tab" width="644" height="419" border="0">
+		</a>
+	</p>
+	<p>
+		<strong>
+			<u>Categories </u>
+		</strong>
+		<u>tab</u>
+	</p>
+	<p>&nbsp;Implements actions related to <strong>managing categories</strong> for the selected team project:</p>
+	<ul>
+		<li>
+			<strong>Export</strong> - <em>exportcategories</em>
+		</li>
+		<li>
+			<strong>Import</strong> - <em>importcategories</em>
+		</li>
+	</ul>
+	<p>When exporting, the path set under <strong>Export Folder</strong> in the <strong>
+			Export/Import Files</strong> group is used. The file name is generated based on the team project name. Additionally the Exported file is loaded in the
+		<strong>XML</strong> edit box.
+	</p>
+	<p>When importing from file, the file from the <strong>Import File Path </strong>
+		in the <strong>Export/Import Files</strong> group is used.
+	</p>
+	<p>When importing from XML, the XML from the <strong>XML</strong> edit box is used.</p>
+	<p>
+		<a href="images/Documentation_8 witadminui2013 - Project Level Actions - Categories tab_4.png" target="_blank">
+			<img title="8 witadminui2013 - Project Level Actions - Categories tab" src="images/Documentation_8 witadminui2013 - Project Level Actions - Categories tab_thumb_1.png" alt="8 witadminui2013 - Project Level Actions - Categories tab" width="523" height="484" border="0">
+		</a>
+	</p>
+	<h2>Collection Level Actions</h2>
+	<p>The tab <strong>
+			<u>Collection Level Actions</u>
+		</strong> contains commands which are executed against the project collection you are connected to.</p>
+	<p>
+		<strong>
+			<u>Fields </u>
+		</strong>
+		<u>tab</u>
+	</p>
+	<p>&nbsp;Implements actions related to <strong>handling work item fields </strong>
+		in the selected project collection:
+	</p>
+	<ul>
+		<li>
+			<strong>Index On</strong> &ndash; <em>indexfield</em>
+		</li>
+		<li>
+			<strong>Delete</strong> &ndash; <em>deletefield</em>
+		</li>
+		<li>
+			<strong>Change </strong>&ndash; <em>changefield</em>
+		</li>
+	</ul>
+	<p>
+	<a href="images/Documentation_9 witadminui2013 - Collection Level Actions - Fields tab_4.png" target="_blank">
+		<em>
+			<img title="9 witadminui2013 - Collection Level Actions - Fields tab" src="images/Documentation_9 witadminui2013 - Collection Level Actions - Fields tab_thumb_1.png" alt="9 witadminui2013 - Collection Level Actions - Fields tab" width="523" height="484" border="0">
+			</em>
+		</a>
+	</p>
+	<p>&nbsp;</p>
+	<p>
+		<strong>
+			<u>Link Types </u>
+		</strong>
+		<u>tab</u>
+	</p>
+	<p>Implements actions related to <strong>managing link types</strong> in the selected project collection:</p>
+	<ul>
+		<li>
+			<strong>Delete</strong> &ndash; <em>deletelinktype</em>
+		</li>
+		<li>
+			<strong>Deactivate</strong> - <em>deactivatelinktype</em>
+		</li>
+		<li>
+			<strong>Reactivate</strong> &ndash; reactivatelinktype </li>
+		<li>
+			<strong>Export to File</strong> - <em>exportlinktype</em>
+		</li>
+		<li>
+			<strong>Import from File </strong>- <em>importlinktype</em>
+		</li>
+		<li>
+			<strong>Import</strong>
+			<strong>from XML</strong> &ndash; <em>importlinktype</em>
+		</li>
+	</ul>
+	<p>When exporting, the path set under <strong>Export Folder</strong> in the <strong>
+			Export/Import Files</strong> group is used. The file name is generated based on link type name. Additionally the exported file is loaded in the
+		<strong>XML</strong> edit box.
+	</p>
+	<p>When importing from file, the file from the <strong>Import File Path </strong>
+		in the <strong>Export/Import Files</strong> group is used.
+	</p>
+	<p>When importing from XML, the XML from the <strong>XML</strong> edit box is used.</p>
+	<p>
+		<a href="images/Documentation_10 witadminui2013 - Collection Level Actions - Link Types tab_6.png" target="_blank">
+			<img title="10 witadminui2013 - Collection Level Actions - Link Types tab" src="images/Documentation_10 witadminui2013 - Collection Level Actions - Link Types tab_thumb_2.png" alt="10 witadminui2013 - Collection Level Actions - Link Types tab" width="644" height="459" border="0">
+		</a>
+	</p>
+	<p>
+		<strong>
+			<u>Global List </u>
+		</strong>
+	<u>tab</u>
+	</p>
+	<p>&nbsp;Implements actions related to <strong>managing global lists </strong>for the selected project collection:</p>
+	<ul>
+		<li>
+			<strong>Import from List </strong>- uses method <em>WorkItemStore.ImportGlobalList</em>
+		</li>
+		<li>
+			<strong>Destroy</strong> &ndash; <em>destroygloballist</em>
+		</li>
+		<li>
+			<strong>Export to File</strong> - <em>exportgloballist</em>
+		</li>
+		<li>
+			<strong>Import from File </strong>- <em>importgloballist</em>
+		</li>
+		<li>
+			<strong>Import</strong>
+			<strong>from XML</strong> - <em>importgloballist</em>
+		</li>
+	</ul>
+	<p>When exporting, the path set under <strong>Export Folder</strong> in the <strong>
+			Export/Import Files</strong> group is used. The file name is generated based on the TFS server name and project collection name. Additionally the exported file is loaded in the
+		<strong>XML</strong> edit box.</p>
+	<p>When importing from file, the file from the <strong>Import File Path </strong>
+		in the <strong>Export/Import Files</strong> group is used.</p>
+	<p>When importing from XML, the XML from the <strong>XML</strong> edit box is used.</p>
+	<p>When importing from list, the XML for import is generated from the contents of the
+		<strong>Global List</strong> tree. By right clicking on a particular tree node you get the options to
+		<strong>Edit</strong>/<strong>Add</strong>/<strong>Delete</strong> that node. The XML imported to TFS is loaded in the
+		<strong>XML</strong> edit box.</p>
+	<p>
+		<a href="images/Documentation_11 witadminui2013 - Collection Level Actions - Global List tab_2.png" target="_blank">
+			<img title="11 witadminui2013 - Collection Level Actions - Global List tab" src="images/Documentation_11 witadminui2013 - Collection Level Actions - Global List tab_thumb.png" alt="11 witadminui2013 - Collection Level Actions - Global List tab" width="576" height="484" border="0">
+		</a>
+	</p>
+	</div>
+	<div class="ClearBoth"/>
+</body>
+				
