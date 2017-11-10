@@ -1,4 +1,17 @@
-[TFS WitAdminUI](https://github.com/aroje/WitAdminUI) is a simple wrapper around the **_witadmin_** command-line tool offering various features.
+**TFS WitAdminUI** is a simple wrapper around the **_witadmin_** command-line tool offering various features.
+
+### Supported Versions
+
+**TFS WitAdminUI** currently supports TFS versions:
+- 2017 and all updates
+- 2015
+- 2013
+
+**TFS WitAdminUI** currently supports VSTS in the following way:
+
+"_For Hosted XML and Inheritance process models, you can only use witadmin commands to list information._" [MSDN](https://msdn.microsoft.com/en-us/library/dd236914.aspx)
+
+## Usage
 
 ![witadminui](images/Documentation_1 witadminui2013_thumb.png)
 
