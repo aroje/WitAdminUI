@@ -10,3 +10,7 @@ When working on customizing a process template, you need to perform several **_w
 - 2017 and all updates
 - 2015
 - 2013
+
+### Documentation
+
+Documentation is available at [https://aroje.github.io/](https://aroje.github.io/).
