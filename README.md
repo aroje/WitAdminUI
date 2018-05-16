@@ -7,7 +7,8 @@ When working on customizing a process template, you need to perform several **_w
 ### Supported Versions
 
 **TFS WitAdminUI** currently supports TFS versions:
-- 2017 and all updates
+- 2018 and all updates
+- 2017 
 - 2015
 - 2013
 
